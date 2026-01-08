@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import payment from './assets/payment.jpg';
 import { 
   Flower, 
   ShoppingCart, 
@@ -266,7 +267,7 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="flex flex-col gap-4">
           <div ref={previewRef} className="bg-white rounded-3xl shadow-sm border border-[#F0EAD6] relative aspect-[4/5] md:h-[600px] overflow-hidden select-none touch-none" style={{ touchAction: 'none' }}>
-            <h3 className="absolute top-6 left-6 text-[#8A9A7B] font-bold uppercase tracking-widest text-xs z-20 bg-white/80 px-2 py-1 rounded shadow-sm">
+            <h3 className="absolute top-6 left-6 text-[#8A9A7B] font-bold uppercase tracking-widest text-xs z-20 bg-white/80 px-2 py-1 rounded ">
               จัดวางตำแหน่งดอกไม้
             </h3>
             
@@ -522,9 +523,10 @@ const App = () => {
         <div className="min-h-screen bg-[#FDFBF7] p-8 flex items-center justify-center">
           <div className="max-w-md w-full bg-white p-10 rounded-[3rem] shadow-xl text-center border border-[#F0EAD6]">
             <h2 className="text-3xl font-serif text-[#5D6D4E] mb-2">ชำระเงิน</h2>
-            <p className="text-gray-400 mb-8 font-medium italic underline underline-offset-4 decoration-[#8A9A7B]">ยอดชำระสุทธิ {totalPrice} บาท</p>
+            <p className="text-3xl text-gray-400 mb-8 font-extrabold   decoration-[#5D6D4E]">ยอดชำระสุทธิ {totalPrice} บาท</p>
             <div className="bg-[#F8F9F4] p-6 rounded-3xl mb-8 flex justify-center border-4 border-[#5D6D4E]/10 shadow-inner">
-               <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=FlowerForYou24_Payment" alt="PromptPay" className="w-full h-full opacity-80" />
+               {/* <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=FlowerForYou24_Payment" alt="PromptPay" className="w-full h-full opacity-80" /> */}
+               <img src={payment} alt="payment" className="w-full h-full opacity-80 rounded-lg" />
             </div>
             <div className="mb-8 text-left">
                <div className="relative border-2 border-dashed border-[#8A9A7B]/30 rounded-2xl p-8 cursor-pointer hover:bg-[#F8F9F4] transition-all">
@@ -639,7 +641,7 @@ const App = () => {
 
             <div className="flex flex-col sm:flex-row gap-4 print:hidden">
               <button onClick={() => window.print()} className="flex-1 py-4 border-2 border-[#8A9A7B] text-[#8A9A7B] rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-gray-50 transition-all shadow-sm active:scale-95">
-                <Download size={20}/> บันทึกใบเสร็จ (PDF)
+                <Download size={20}/> บันทึกใบเสร็จ (PDF) 
               </button>
               <button onClick={resetOrder} className="flex-1 py-4 bg-[#8A9A7B] text-white rounded-2xl font-bold shadow-lg hover:bg-[#6D7D5E] transition-all active:scale-95">
                 กลับหน้าหลัก
