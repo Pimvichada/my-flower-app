@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import payment from './assets/payment.jpg';
+
+
 import { 
   Flower, 
   ShoppingCart, 
@@ -34,7 +36,12 @@ const BASE_PRICE = 69;
 const ADDITIONAL_FLOWER_PRICE = 10;
 
 const FLOWER_TYPES = [
-  { id: 'f1', name: 'Daisy', color: '#FFF9C4', svg: 'M12 12c2.2 0 4-1.8 4-4s-1.8-4-4-4-4 1.8-4 4 1.8 4 4 4z M12 12c0 2.2 1.8 4 4 4s4-1.8 4-4-1.8-4-4-4-4 1.8-4 4z M12 12c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z M12 12c0-2.2-1.8-4-4-4s-4 1.8-4 4 1.8 4 4 4z' },
+ { 
+  id: 'f1', 
+  name: 'f1', 
+  color: '#FFF9C4', 
+  img: './assets/icons/f1.png' // เปลี่ยนจาก svg เป็นที่อยู่ไฟล์ภาพ
+},
   { id: 'f2', name: 'Tulip', color: '#FFCDD2', svg: 'M12 21c-3.3 0-6-2.7-6-6 0-3.3 2.7-6 6-6s6 2.7 6 6-2.7 6-6 6z' },
   { id: 'f3', name: 'Rose', color: '#F8BBD0', svg: 'M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z' },
   { id: 'f4', name: 'Lavender', color: '#E1BEE7', svg: 'M12 2v20M9 7l3 3 3-3M9 12l3 3 3-3' },
@@ -87,7 +94,7 @@ const FallingBackground = () => {
       id: i,
       left: Math.random() * 100,
       delay: Math.random() * 15,
-      duration: 10 + Math.random() * 12, // Faster than before but still smooth
+      duration: 5 + Math.random() * 12, // Faster than before but still smooth
       size: 40 + Math.random() * 45, // Larger flowers as requested
       color: COLORS[Math.floor(Math.random() * COLORS.length)],
       rotation: Math.random() * 360,
@@ -271,7 +278,8 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
               จัดวางตำแหน่งดอกไม้
             </h3>
             
-            <svg ref={svgRef} width="100%" height="100%" viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg" className="w-full h-full bg-white">
+            <svg ref={svgRef} width="100%" height="100%" viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg" className="w-full h-full backgroundimage{j.png}">
+
               {flowers.length > 0 && (
                 <g className="opacity-40">
                   <circle cx="50" cy="100" r="8" fill="none" stroke={ring} strokeWidth="2" />
