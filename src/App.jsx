@@ -348,7 +348,7 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
                 <div className="flex flex-wrap gap-2">{RIBBON_COLORS.map(c => <button key={c} onClick={() => setRibbon(c)} className={`w-8 h-8 rounded-lg border-2 ${ribbon === c ? 'border-gray-800 shadow-sm' : 'border-white'}`} style={{ backgroundColor: c }} />)}</div>
               </div>
               <div>
-                <label className="text-[10px] font-bold opacity-60 block mb-2 uppercase">สีโซ่</label>
+                <label className="text-[10px] font-bold opacity-60 block mb-2 uppercase">สีห่วง</label>
                 <div className="flex flex-wrap gap-2">{RING_COLORS.map(c => <button key={c} onClick={() => setRing(c)} className={`w-8 h-8 rounded-full border-2 flex items-center justify-center ${ring === c ? 'border-gray-800 shadow-sm' : 'border-white'}`} style={{ backgroundColor: c }}><div className="w-3 h-3 rounded-full border border-black/10"></div></button>)}</div>
               </div>
             </div>
