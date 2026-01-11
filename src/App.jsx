@@ -261,7 +261,7 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
   return (
     <div className="min-h-screen bg-[#FDFBF7] p-4 md:p-8" onPointerMove={handlePointerMove} onPointerUp={() => setDraggingId(null)}>
       <button onClick={onBack} className="mb-6 flex items-center text-[#8A9A7B] font-bold no-print">
-        <ArrowLeft size={18} className="mr-1" /> {editingId ? 'ยกเลิกการแก้ไข' : 'กลับหน้าแรก'}
+        <ArrowLeft size={18} className="mr-1" /> {editingId ? 'ยกเลิกการแก้ไข' : 'กลับหาแรก'}
       </button>
       
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
