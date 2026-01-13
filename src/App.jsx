@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import payment from './assets/payment.jpg';
+import f1 from './assets/f1.png';
+
+
 import { 
   Flower, 
   ShoppingCart, 
@@ -27,11 +30,26 @@ import {
   Clock
 } from 'lucide-react';
 
+//import Scene Components...
+
 // --- Constants & Config ---
 const SHIPPING_FEE = 25;
 const BASE_FLOWERS_COUNT = 5;
 const BASE_PRICE = 69;
 const ADDITIONAL_FLOWER_PRICE = 10;
+
+const FLOWER_TYPES1 = [
+ { 
+  id: 'f1', 
+  name: 'f1', 
+  color: '#FFF9C4', 
+  img: <img src={f1} alt="f1" className="w-full h-full opacity-80" />,
+},
+  { id: 'f2', name: 'Tulip', color: '#FFCDD2', svg: 'M12 21c-3.3 0-6-2.7-6-6 0-3.3 2.7-6 6-6s6 2.7 6 6-2.7 6-6 6z' },
+  { id: 'f3', name: 'Rose', color: '#F8BBD0', svg: 'M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z' },
+  { id: 'f4', name: 'Lavender', color: '#E1BEE7', svg: 'M12 2v20M9 7l3 3 3-3M9 12l3 3 3-3' },
+  { id: 'f5', name: 'Sunflower', color: '#FFE082', svg: 'M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0' }
+];
 
 const FLOWER_TYPES = [
   { id: 'f1', name: 'Daisy', color: '#FFF9C4', svg: 'M12 12c2.2 0 4-1.8 4-4s-1.8-4-4-4-4 1.8-4 4 1.8 4 4 4z M12 12c0 2.2 1.8 4 4 4s4-1.8 4-4-1.8-4-4-4-4 1.8-4 4z M12 12c-2.2 0-4 1.8-4 4s1.8 4 4 4 4-1.8 4-4-1.8-4-4-4z M12 12c0-2.2-1.8-4-4-4s-4 1.8-4 4 1.8 4 4 4z' },
@@ -86,11 +104,17 @@ const FallingBackground = () => {
     const newPetals = Array.from({ length: 25 }).map((_, i) => ({
       id: i,
       left: Math.random() * 100,
+
       delay: -(Math.random() * 100),
       duration: 10 + Math.random() * 12, // Faster than before but still smooth
+
+     
+
       size: 40 + Math.random() * 45, // Larger flowers as requested
       color: COLORS[Math.floor(Math.random() * COLORS.length)],
       rotation: Math.random() * 360,
+      //////
+      // flowerType: FLOWER_TYPES[Math.floor(Math.random() * FLOWER_TYPES.length)].img
       flowerType: FLOWER_TYPES[Math.floor(Math.random() * FLOWER_TYPES.length)].svg
     }));
     setPetals(newPetals);
@@ -152,7 +176,7 @@ const HomeView = ({ onStartCustom, onGoCatalog }) => (
     
     <div className="mb-12 animate-fade-in text-[#5D6D4E] z-10 relative">
       <h1 className="text-6xl md:text-8xl font-serif mb-6 tracking-wide drop-shadow-md">Flower For You 24</h1>
-      <p className="text-xl md:text-2xl font-light italic opacity-80 tracking-widest">ลูกปัดดอกไม้แฮนด์เมดด้วยหัวใจ</p>
+      <p className="text-xl md:text-2xl font-light italic opacity-80 tracking-widest text-[#99908c] ">ลูกปัดดอกไม้แฮนด์เมดด้วยหัวใจ12345</p>
     </div>
     
     <div className="flex flex-col sm:flex-row gap-6 z-10 relative">
@@ -161,6 +185,7 @@ const HomeView = ({ onStartCustom, onGoCatalog }) => (
         className="px-12 py-6 bg-[#8A9A7B] text-white rounded-full hover:bg-[#6D7D5E] transition-all shadow-xl hover:shadow-2xl flex items-center justify-center gap-3 font-bold active:scale-95 text-xl"
       >
         <Plus size={24} /> ออกแบบเอง (Custom)
+        
       </button>
       <button 
         onClick={onGoCatalog} 
@@ -177,7 +202,7 @@ const HomeView = ({ onStartCustom, onGoCatalog }) => (
 );
 
 const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing, onAdd, onBack, editingId }) => {
-  const [selectedType, setSelectedType] = useState(FLOWER_TYPES[0]);
+  const [selectedType, setSelectedType] = useState(FLOWER_TYPES1[0]);
   const [selectedColor, setSelectedColor] = useState(COLORS[0]);
   const [draggingId, setDraggingId] = useState(null);
   const [isCapturing, setIsCapturing] = useState(false);
@@ -267,11 +292,13 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="flex flex-col gap-4">
           <div ref={previewRef} className="bg-white rounded-3xl shadow-sm border border-[#F0EAD6] relative aspect-[4/5] md:h-[600px] overflow-hidden select-none touch-none" style={{ touchAction: 'none' }}>
+           
             <h3 className="absolute top-6 left-6 text-[#8A9A7B] font-bold uppercase tracking-widest text-xs z-20 bg-white/80 px-2 py-1 rounded ">
               จัดวางตำแหน่งดอกไม้
             </h3>
             
-            <svg ref={svgRef} width="100%" height="100%" viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg" className="w-full h-full bg-white">
+            <svg ref={svgRef} width="100%" height="100%" viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg" className="w-full h-full backgroundimage{j.png}">
+
               {flowers.length > 0 && (
                 <g className="opacity-40">
                   <circle cx="50" cy="100" r="8" fill="none" stroke={ring} strokeWidth="2" />
@@ -328,9 +355,12 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
           <section className="bg-white p-6 rounded-3xl border border-[#F0EAD6] shadow-sm">
             <h4 className="font-bold text-[#5D6D4E] mb-4 flex items-center gap-2"><PlusCircle size={18}/> 1. เลือกดอกไม้และสี</h4>
             <div className="flex gap-4 mb-6 overflow-x-auto pb-2 no-scrollbar">
-              {FLOWER_TYPES.map(type => (
-                <button key={type.id} onClick={() => setSelectedType(type)} className={`p-4 rounded-2xl border-2 transition-all flex-shrink-0 flex flex-col items-center gap-2 min-w-[80px] ${selectedType.id === type.id ? 'border-[#8A9A7B] bg-[#F8F9F4]' : 'border-transparent bg-gray-50'}`}>
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill={selectedType.id === type.id ? selectedColor : '#ccc'}><path d={type.svg} /></svg>
+              {FLOWER_TYPES1.map(type => (
+                <button key={type.id} onClick={() => setSelectedType(type)} className={`p-4 rounded-2xl border-2 transition-all flex-shrink-0 flex flex-col items-center gap-2 min-w-[8px]  ${selectedType.id === type.id ? 'border-[#8A9A7B] bg-[#F8F9F4]' : 'border-transparent bg-gray-50'}`}>
+                  {/* <svg width="32" height="32" viewBox="0 0 24 24" fill={selectedType.id === type.id ? selectedColor : '#ccc'}><path d={type.svg} /></svg> */}
+
+                  <div className="w-8 h-20">{type.img}</div>
+
                   <span className="text-[10px] font-bold uppercase">{type.name}</span>
                 </button>
               ))}
