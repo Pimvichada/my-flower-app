@@ -172,7 +172,7 @@ const HomeView = ({ onStartCustom, onGoCatalog }) => (
     
     <div className="mb-12 animate-fade-in text-[#5D6D4E] z-10 relative">
       <h1 className="text-6xl md:text-8xl font-serif mb-6 tracking-wide drop-shadow-md">Flower For You 24</h1>
-      <p className="text-xl md:text-2xl font-light italic opacity-80 tracking-widest text-[#99908c] ">ลูกปัดดอกไม้แฮนด์เมดด้วยหัวใจ</p>
+      <p className="text-xl md:text-2xl font-light italic opacity-80 tracking-widest text-[#99908c] ">ลูกปัดดอกไม้แฮนด์เมดด้วยหัวใจ111</p>
     </div>
     
     <div className="flex flex-col sm:flex-row gap-6 z-10 relative">
