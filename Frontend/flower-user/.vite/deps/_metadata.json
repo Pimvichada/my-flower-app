@@ -1,0 +1,54 @@
+{
+  "hash": "8bf44318",
+  "configHash": "24f0fdc5",
+  "lockfileHash": "be485b62",
+  "browserHash": "475a061d",
+  "optimized": {
+    "lucide-react": {
+      "src": "../../node_modules/lucide-react/dist/esm/lucide-react.js",
+      "file": "lucide-react.js",
+      "fileHash": "6b464a14",
+      "needsInterop": false
+    },
+    "promptpay-qr": {
+      "src": "../../node_modules/promptpay-qr/index.js",
+      "file": "promptpay-qr.js",
+      "fileHash": "1634190b",
+      "needsInterop": true
+    },
+    "qrcode.react": {
+      "src": "../../node_modules/qrcode.react/lib/esm/index.js",
+      "file": "qrcode__react.js",
+      "fileHash": "376da612",
+      "needsInterop": false
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "202af27f",
+      "needsInterop": true
+    },
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "3443a9d2",
+      "needsInterop": true
+    },
+    "react/jsx-dev-runtime": {
+      "src": "../../node_modules/react/jsx-dev-runtime.js",
+      "file": "react_jsx-dev-runtime.js",
+      "fileHash": "b3248ec5",
+      "needsInterop": true
+    }
+  },
+  "chunks": {
+    "chunk-C3fVp-vY": {
+      "file": "chunk-C3fVp-vY.js",
+      "isDynamicEntry": false
+    },
+    "react-BflXS9Hd": {
+      "file": "react-BflXS9Hd.js",
+      "isDynamicEntry": false
+    }
+  }
+}
