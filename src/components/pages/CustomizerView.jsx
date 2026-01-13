@@ -6,10 +6,14 @@ import {
   Info,
   PlusCircle
 } from 'lucide-react';
-import { FLOWER_TYPES1, COLORS, RIBBON_COLORS, RING_COLORS } from '../../constants/index';
+import { FLOWER_TYPES1, COLORS, RIBBON_COLORS, RING_COLORS} from '../../constants/index';
 import { groupFlowers, calculateCustomPrice, captureSnapshot } from '../../utils/helpers';
 
-const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing, onAdd, onBack, editingId }) => {
+
+
+
+
+const CustomizerView = ({ flowers, setFlowers,ribbon, setRibbon, ring, setRing, onAdd, onBack, editingId }) => {
   const [selectedType, setSelectedType] = useState(FLOWER_TYPES1[0]);
   const [selectedColor, setSelectedColor] = useState(COLORS[0]);
   const [draggingId, setDraggingId] = useState(null);
@@ -88,6 +92,7 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
 
               {flowers.length > 0 && (
                 <g className="opacity-40">
+                  <img src={ribbon} alt="" />
                   <circle cx="50" cy="100" r="8" fill="none" stroke={ring} strokeWidth="2" />
                   <path d="M40 115 Q50 105 60 115 L55 125 L45 125 Z" fill={ribbon} />
                 </g>
@@ -102,7 +107,7 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
                 >
                   <circle cx="0" cy="0" r="14" fill="transparent" />
                   <g transform="translate(-14, -14) scale(1.15)">
-                    <path d={f.svg} fill={f.color} className="drop-shadow-md" />
+                    <path d={f.img} fill={f.color} className="drop-shadow-md" />
                   </g>
                 </g>
               ))}
@@ -146,14 +151,15 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
               {FLOWER_TYPES1.map(type => (
                 <button key={type.id} onClick={() => setSelectedType(type)} className={`p-4 rounded-2xl border-2 transition-all flex-shrink-0 flex flex-col items-center gap-2 min-w-[8px]  ${selectedType.id === type.id ? 'border-[#8A9A7B] bg-[#F8F9F4]' : 'border-transparent bg-gray-50'}`}>
                   <div className="w-8 h-20">
+                    {/* ใส่รูปดอกไม้ */}
                     <img src={type.img} alt={type.name} className="w-full h-full object-contain" />
                   </div>
                   <span className="text-[10px] font-bold uppercase">{type.name}</span>
                 </button>
               ))}
             </div>
-            <div className="grid grid-cols-5 sm:grid-cols-9 gap-3 mb-6">
-              {COLORS.map(c => <button key={c} onClick={() => setSelectedColor(c)} className={`w-full aspect-square rounded-full border-4 transition-all ${selectedColor === c ? 'border-gray-800 scale-110 shadow-md' : 'border-white'}`} style={{ backgroundColor: c }} />)}
+            <div className="grid grid-cols-5 sm:grid-cols-9 gap-3 mb-6 ">
+              {COLORS.map(c => <button key={c} onClick={() => setSelectedColor(c)} className={`w-full aspect-square rounded-full border-2 transition-all ${selectedColor === c ? 'border-gray-800 scale-110 shadow-md' :'border-gray-200'}`} style={{ backgroundColor: c }} />)}
             </div>
             <button onClick={addFlower} className="w-full py-4 bg-[#E9EDC9] text-[#5D6D4E] font-bold rounded-2xl hover:bg-[#CCD5AE] shadow-sm flex items-center justify-center gap-2 active:scale-95 transition-transform"><Plus size={20} /> เพิ่มดอกไม้ลงในช่อ</button>
           </section>
@@ -162,11 +168,11 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
             <div className="grid grid-cols-2 gap-6">
               <div>
                 <label className="text-[10px] font-bold opacity-60 block mb-2 uppercase">สีโบว์</label>
-                <div className="flex flex-wrap gap-2">{RIBBON_COLORS.map(c => <button key={c} onClick={() => setRibbon(c)} className={`w-8 h-8 rounded-lg border-2 ${ribbon === c ? 'border-gray-800 shadow-sm' : 'border-white'}`} style={{ backgroundColor: c }} />)}</div>
+                <div className="flex flex-wrap gap-2">{RIBBON_COLORS.map(c => <button key={c} onClick={() => setRibbon(c)} className={`w-8 h-8 rounded-lg border-2 ${ribbon === c ? 'border-gray-800 shadow-sm' : 'border-gray-200'}`} style={{ backgroundColor: c }} />)}</div>
               </div>
               <div>
                 <label className="text-[10px] font-bold opacity-60 block mb-2 uppercase">สีห่วง</label>
-                <div className="flex flex-wrap gap-2">{RING_COLORS.map(c => <button key={c} onClick={() => setRing(c)} className={`w-8 h-8 rounded-full border-2 flex items-center justify-center ${ring === c ? 'border-gray-800 shadow-sm' : 'border-white'}`} style={{ backgroundColor: c }}><div className="w-3 h-3 rounded-full border border-black/10"></div></button>)}</div>
+                <div className="flex flex-wrap gap-2">{RING_COLORS.map(c => <button key={c} onClick={() => setRing(c)} className={`w-8 h-8 rounded-full border-2 flex items-center justify-center ${ring === c ? 'border-gray-800 shadow-sm' : 'border-gray-200'}`} style={{ backgroundColor: c }}><div className="w-3 h-3 rounded-full border border-black/10"></div></button>)}</div>
               </div>
             </div>
           </section>
