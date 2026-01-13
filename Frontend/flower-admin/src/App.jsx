@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Lock,
-  Package,
-  RefreshCw,
-  Eye,
-  Check,
-  X,
-  LogOut,
-  Search,
-} from "lucide-react";
+import { Lock, Package, RefreshCw, Eye, Check, X, LogOut } from "lucide-react";
 
 // --- 1. หน้า Login Component ---
 const LoginView = ({ onLogin }) => {
@@ -79,16 +70,21 @@ const DashboardView = ({ onLogout }) => {
       )
     )
       return;
-    await fetch(`http://localhost:5000/api/orders/${orderId}/status`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status }),
-    });
-    fetchOrders();
+
+    try {
+      await fetch(`http://localhost:5000/api/orders/${orderId}/status`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status }),
+      });
+      fetchOrders(); // โหลดข้อมูลใหม่เพื่ออัปเดตสถานะและซ่อนปุ่ม
+    } catch (err) {
+      alert("เกิดข้อผิดพลาดในการอัปเดตสถานะ");
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 font-sans">
       {/* Navbar */}
       <nav className="bg-white border-b border-gray-100 px-8 py-4 flex justify-between items-center sticky top-0 z-10">
         <div className="flex items-center gap-2 font-serif font-bold text-[#5D6D4E] text-xl">
@@ -96,7 +92,7 @@ const DashboardView = ({ onLogout }) => {
         </div>
         <button
           onClick={onLogout}
-          className="flex items-center gap-2 text-red-400 font-bold text-sm hover:text-red-600"
+          className="flex items-center gap-2 text-red-400 font-bold text-sm hover:text-red-600 transition-colors"
         >
           <LogOut size={18} /> ออกจากระบบ
         </button>
@@ -108,13 +104,13 @@ const DashboardView = ({ onLogout }) => {
             <h1 className="text-3xl font-serif font-bold text-[#5D6D4E]">
               รายการสั่งซื้อ
             </h1>
-            <p className="text-gray-400">
+            <p className="text-gray-400 mt-1">
               ตรวจสอบและยืนยันการชำระเงินจากลูกค้า
             </p>
           </div>
           <button
             onClick={fetchOrders}
-            className="p-3 bg-white rounded-xl shadow-sm border border-gray-100 hover:bg-gray-50 transition-all"
+            className="p-3 bg-white rounded-xl shadow-sm border border-gray-100 hover:bg-gray-50 transition-all active:scale-95"
           >
             <RefreshCw
               size={20}
@@ -125,90 +121,105 @@ const DashboardView = ({ onLogout }) => {
           </button>
         </div>
 
-        {/* Table */}
+        {/* Table Section */}
         <div className="bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden">
-          <table className="w-full text-left">
-            <thead className="bg-[#F8F9F4] text-[#8A9A7B] text-xs font-bold uppercase">
-              <tr>
-                <th className="px-6 py-5">ออเดอร์</th>
-                <th className="px-6 py-5">ลูกค้า</th>
-                <th className="px-6 py-5">ยอดโอน</th>
-                <th className="px-6 py-5">หลักฐาน</th>
-                <th className="px-6 py-5">สถานะ</th>
-                <th className="px-6 py-5 text-center">จัดการ</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-50">
-              {orders.map((order) => (
-                <tr
-                  key={order.orderId}
-                  className="hover:bg-gray-50/50 transition-colors"
-                >
-                  <td className="px-6 py-4">
-                    <span className="font-mono font-bold text-[#5D6D4E]">
-                      {order.orderId}
-                    </span>
-                    <div className="text-[10px] text-gray-400 uppercase">
-                      {new Date(order.orderTime).toLocaleString("th-TH")}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="font-bold text-gray-700">
-                      {order.customerInfo?.name}
-                    </div>
-                    <div className="text-xs text-gray-400">
-                      {order.customerInfo?.phone}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 font-bold text-[#5D6D4E]">
-                    ฿{order.summary?.totalPrice}
-                  </td>
-                  <td className="px-6 py-4">
-                    <button
-                      onClick={() =>
-                        window.open(`http://localhost:5000/${order.slipPath}`)
-                      }
-                      className="flex items-center gap-1 text-xs font-bold text-[#8A9A7B] hover:underline"
-                    >
-                      <Eye size={14} /> ดูสลิป
-                    </button>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span
-                      className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase ${
-                        order.status === "approved"
-                          ? "bg-green-100 text-green-600"
-                          : order.status === "rejected"
-                          ? "bg-red-100 text-red-600"
-                          : "bg-orange-100 text-orange-600"
-                      }`}
-                    >
-                      {order.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex justify-center gap-2">
-                      <button
-                        onClick={() => updateStatus(order.orderId, "approved")}
-                        className="p-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all"
-                      >
-                        <Check size={16} />
-                      </button>
-                      <button
-                        onClick={() => updateStatus(order.orderId, "rejected")}
-                        className="p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all"
-                      >
-                        <X size={16} />
-                      </button>
-                    </div>
-                  </td>
+          <div className="overflow-x-auto">
+            <table className="w-full text-left">
+              <thead className="bg-[#F8F9F4] text-[#8A9A7B] text-xs font-bold uppercase tracking-wider">
+                <tr>
+                  <th className="px-6 py-5">ออเดอร์</th>
+                  <th className="px-6 py-5">ลูกค้า</th>
+                  <th className="px-6 py-5">ยอดโอน</th>
+                  <th className="px-6 py-5">หลักฐาน</th>
+                  <th className="px-6 py-5 text-center">สถานะ</th>
+                  <th className="px-6 py-5 text-center">จัดการ</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-gray-50">
+                {orders.map((order) => (
+                  <tr
+                    key={order.orderId}
+                    className="hover:bg-gray-50/50 transition-colors"
+                  >
+                    <td className="px-6 py-4">
+                      <span className="font-mono font-bold text-[#5D6D4E]">
+                        {order.orderId}
+                      </span>
+                      <div className="text-[10px] text-gray-400 uppercase font-medium">
+                        {new Date(order.orderTime).toLocaleString("th-TH")}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="font-bold text-gray-700">
+                        {order.customerInfo?.name}
+                      </div>
+                      <div className="text-xs text-gray-400">
+                        {order.customerInfo?.phone}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 font-bold text-[#5D6D4E]">
+                      ฿{order.summary?.totalPrice.toLocaleString()}
+                    </td>
+                    <td className="px-6 py-4">
+                      <button
+                        onClick={() =>
+                          window.open(`http://localhost:5000/${order.slipPath}`)
+                        }
+                        className="flex items-center gap-1 text-xs font-bold text-[#8A9A7B] hover:text-[#5D6D4E] transition-colors underline decoration-dotted"
+                      >
+                        <Eye size={14} /> ดูสลิป
+                      </button>
+                    </td>
+                    <td className="px-6 py-4 text-center">
+                      <span
+                        className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase inline-block ${
+                          order.status === "approved"
+                            ? "bg-green-100 text-green-600"
+                            : order.status === "rejected"
+                            ? "bg-red-100 text-red-600"
+                            : "bg-orange-100 text-orange-600"
+                        }`}
+                      >
+                        {order.status}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      {/* --- ส่วนที่แก้ไข: เช็คสถานะก่อนโชว์ปุ่ม --- */}
+                      {order.status === "pending" ? (
+                        <div className="flex justify-center gap-2">
+                          <button
+                            onClick={() =>
+                              updateStatus(order.orderId, "approved")
+                            }
+                            className="p-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all shadow-sm active:scale-95"
+                            title="อนุมัติ"
+                          >
+                            <Check size={16} />
+                          </button>
+                          <button
+                            onClick={() =>
+                              updateStatus(order.orderId, "rejected")
+                            }
+                            className="p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all shadow-sm active:scale-95"
+                            title="ปฏิเสธ"
+                          >
+                            <X size={16} />
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="text-center text-[10px] text-gray-300 font-bold italic uppercase tracking-widest">
+                          Done
+                        </div>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
           {orders.length === 0 && !loading && (
-            <div className="p-20 text-center text-gray-300">
-              ไม่พบข้อมูลคำสั่งซื้อ
+            <div className="p-20 text-center text-gray-300 font-serif italic">
+              ไม่พบข้อมูลคำสั่งซื้อในระบบ
             </div>
           )}
         </div>
