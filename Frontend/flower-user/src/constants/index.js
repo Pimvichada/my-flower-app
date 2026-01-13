@@ -9,7 +9,7 @@ export const ADDITIONAL_FLOWER_PRICE = 10;
 
 // --- Flower Types ---
 export const FLOWER_TYPES1 = [
-  { id: 'f1', name: 'f1' ,color: '#FFCDD2', img: f1},
+  { id: 'f1', name: 'f1' ,color: '#9E9E9E', img: f1},
   { id: 'f2', name: 'Tulip', color: '#9E9E9E',  img: f2, },
   { id: 'f3', name: 'Tulip', color: '#FFCDD2',  img: f2, },
   { id: 'f4', name: 'Tulip', color: '#FFCDD2',  img: f2, },
@@ -34,8 +34,8 @@ export const COLOR_NAMES = {
   '#FFC6FF': 'ชมพูหวาน', 
   '#FFFFFF': 'ขาวบริสุทธิ์',
 ////////
-
 };
+
 
 export const COLOR_OPTIONS = { 
   '#9E9E9E': { name: 'สีเริ่มต้น', img: '/images/colors/default.png' },

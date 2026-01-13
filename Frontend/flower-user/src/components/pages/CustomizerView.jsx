@@ -7,6 +7,7 @@ import {
   PlusCircle
 } from 'lucide-react';
 import { FLOWER_TYPES1, COLORS, RIBBON_COLORS, RING_COLORS} from '../../constants/index';
+import bgJ from '../../assets/j.png';
 import { groupFlowers, calculateCustomPrice, captureSnapshot } from '../../utils/helpers';
 
 
@@ -82,13 +83,13 @@ const CustomizerView = ({ flowers, setFlowers,ribbon, setRibbon, ring, setRing, 
 
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="flex flex-col gap-4">
-          <div ref={previewRef} className="bg-white rounded-3xl shadow-sm border border-[#F0EAD6] relative aspect-[4/5] md:h-[600px] overflow-hidden select-none touch-none" style={{ touchAction: 'none' }}>
+          <div ref={previewRef} className="bg-white rounded-3xl shadow-sm border border-[#F0EAD6] relative aspect-[4/5] md:h-[600px] overflow-hidden select-none touch-none" style={{ touchAction: 'none', backgroundImage: `url(${bgJ})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
 
             <h3 className="absolute top-6 left-6 text-[#8A9A7B] font-bold uppercase tracking-widest text-xs z-20 bg-white/80 px-2 py-1 rounded ">
               จัดวางตำแหน่งดอกไม้
             </h3>
 
-            <svg ref={svgRef} width="100%" height="100%" viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg" className="w-full h-full backgroundimage{j.png}">
+            <svg ref={svgRef} width="100%" height="100%" viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
 
               {flowers.length > 0 && (
                 <g className="opacity-40">
@@ -113,7 +114,7 @@ const CustomizerView = ({ flowers, setFlowers,ribbon, setRibbon, ring, setRing, 
               ))}
             </svg>
 
-            {flowers.length === 0 && <div className="absolute inset-0 flex items-center justify-center text-center p-8 text-gray-300 font-medium italic">เริ่มออกแบบดอกไม้ด้านขวา</div>}
+            {flowers.length === 0 && <div className="absolute inset-0 flex items-top justify-center text-center p-40 text-gray-300 font-medium italic">เริ่มออกแบบดอกไม้ด้านขวา</div>}
           </div>
 
           <div className="bg-white p-6 rounded-3xl border border-[#F0EAD6]">
