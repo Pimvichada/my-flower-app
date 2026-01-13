@@ -37,12 +37,12 @@ export const COLOR_NAMES = {
 };
 
 
-export const COLOR_OPTIONS = { 
-  '#9E9E9E': { name: 'สีเริ่มต้น', img: '/images/colors/default.png' },
-  '#FFADAD': { name: 'แดงพาสเทล', img: '/images/colors/pastel-red.png' },
-  '#FFD6A5': { name: 'ส้มพีช', img: '/images/colors/peach-orange.png' },
-  // ... เพิ่มสีอื่นๆ ให้ครบ
-};
+// export const COLOR_OPTIONS = { 
+//   '#9E9E9E': { name: 'สีเริ่มต้น', img: '/images/colors/default.png' },
+//   '#FFADAD': { name: 'แดงพาสเทล', img: '/images/colors/pastel-red.png' },
+//   '#FFD6A5': { name: 'ส้มพีช', img: '/images/colors/peach-orange.png' },
+ 
+// };
 
 
 

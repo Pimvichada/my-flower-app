@@ -11,9 +11,6 @@ import bgJ from '../../assets/j.png';
 import { groupFlowers, calculateCustomPrice, captureSnapshot } from '../../utils/helpers';
 
 
-
-
-
 const CustomizerView = ({ flowers, setFlowers,ribbon, setRibbon, ring, setRing, onAdd, onBack, editingId }) => {
   const [selectedType, setSelectedType] = useState(FLOWER_TYPES1[0]);
   const [selectedColor, setSelectedColor] = useState(COLORS[0]);
@@ -91,13 +88,12 @@ const CustomizerView = ({ flowers, setFlowers,ribbon, setRibbon, ring, setRing, 
 
             <svg ref={svgRef} width="100%" height="100%" viewBox="0 0 100 125" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
 
-              {flowers.length > 0 && (
+              {/* {flowers.length > 0 && (
                 <g className="opacity-40">
-                  <img src={ribbon} alt="" />
                   <circle cx="50" cy="100" r="8" fill="none" stroke={ring} strokeWidth="2" />
                   <path d="M40 115 Q50 105 60 115 L55 125 L45 125 Z" fill={ribbon} />
                 </g>
-              )}
+              )} */}
 
               {flowers.map((f) => (
                 <g
