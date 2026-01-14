@@ -193,7 +193,7 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
             </h4>
 
             {/* ส่วนเลือกชนิดดอกไม้ (Flower Type Selection) */}
-            <div className="flex gap-4 mb-6 overflow-x-auto pb-2 no-scrollbar">
+            <div className="flex gap-4 mb-6 overflow-x-auto pb-2 no-scrollbar ">
               {FLOWER_TYPES1.map(type => {
                 const isSelected = selectedType.id === type.id;
                 const displayImg = isSelected
@@ -213,7 +213,7 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
                       }`}
                   >
 
-                    <div className="w-12 h-16">
+                    <div className="w-12 h-16 ">
                       <img
                         src={displayImg} // ใช้ตัวแปร displayImg ที่เราคำนวณไว้ด้านบน
                         alt={type.name}
@@ -224,6 +224,7 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
                   </button>
                 );
               })}
+
             </div>
 
 
@@ -250,11 +251,7 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
               <Plus size={20} /> เพิ่มดอกไม้ลงในช่อ
             </button>
           </section>
-        </div>
-
-
-
-        <section className="bg-white p-6 rounded-3xl border border-[#F0EAD6] shadow-sm text-[#5D6D4E]">
+          <section className="bg-white p-6 rounded-3xl border border-[#F0EAD6] shadow-sm text-[#5D6D4E]">
           <h4 className="font-bold mb-4">2. อะไหล่แถมฟรี!</h4>
           <div className="grid grid-cols-2 gap-6">
             <div>
@@ -267,6 +264,9 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
             </div>
           </div>
         </section>
+        </div>
+
+        
       </div>
     </div>
   );
