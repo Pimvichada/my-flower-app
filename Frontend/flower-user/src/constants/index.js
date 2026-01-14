@@ -1,5 +1,12 @@
 import f1 from '../assets/f1/basicf1.png';
 import f2 from '../assets/f2/basicf2.png';
+import f1_red from '../assets/f1/f1_red.png';
+import f1_orange from '../assets/f1/f1_orange.png';
+import f1_blue from '../assets/f1/f1_blue.png'; 
+import f1_purple from '../assets/f1/f1_purple.png';
+import f1_pink from '../assets/f1/f1_pink.png';
+import f1_white from '../assets/f1/f1_white.png';
+import f1_yellow from '../assets/f1/f1_yellow.png';
 
 // --- Pricing Constants ---
 export const SHIPPING_FEE = 25;
@@ -7,8 +14,35 @@ export const BASE_FLOWERS_COUNT = 5;
 export const BASE_PRICE = 69;
 export const ADDITIONAL_FLOWER_PRICE = 10;
 
-// --- Flower Types ---
+
 export const FLOWER_TYPES1 = [
+  { 
+    id: 'f1', 
+    name: 'f1',
+    // เก็บรูปแยกตามรหัสสี (Hex Code)
+    colors: {
+      '#FFADAD': { name: 'แดงพาสเทล', img: f1_red },
+      '#FFD6A5': { name: 'ส้มพีช', img: f1_orange },
+      '#A0C4FF': { name: 'ฟ้าสดใส', img: f1_blue },
+      '#BDB2FF': { name: 'ม่วงลาเวนเดอร์', img: f1_purple },
+      '#FFC6FF': { name: 'ชมพูหวาน', img: f1_pink },
+      '#FFFFFF': { name: 'ขาวบริสุทธิ์', img: f1_white },
+      '#FDFFB6': { name: 'เหลือง', img: f1_yellow },
+      '#9E9E9E': { name: 'สีเริ่มต้น', img: f1 } // basicf1.png
+    }
+  },
+  { 
+    id: 'f2', 
+    name: 'Tulip',
+    colors: {
+      // '#FFADAD': { name: 'แดงพาสเทล', img: f2_red },
+      '#9E9E9E': { name: 'สีเริ่มต้น', img: f2 } // basicf2.png
+    }
+  }
+];
+
+// --- Flower Types ---
+export const FLOWER_TYPES2 = [
   { id: 'f1', name: 'f1' ,color: '#9E9E9E', img: f1},
   { id: 'f2', name: 'Tulip', color: '#9E9E9E',  img: f2, },
   { id: 'f3', name: 'Tulip', color: '#FFCDD2',  img: f2, },

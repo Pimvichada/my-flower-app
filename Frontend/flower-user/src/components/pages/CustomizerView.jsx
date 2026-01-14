@@ -11,7 +11,7 @@ import bgJ from '../../assets/j.png';
 import { groupFlowers, calculateCustomPrice, captureSnapshot } from '../../utils/helpers';
 
 
-const CustomizerView = ({ flowers, setFlowers,ribbon, setRibbon, ring, setRing, onAdd, onBack, editingId }) => {
+const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing, onAdd, onBack, editingId }) => {
   const [selectedType, setSelectedType] = useState(FLOWER_TYPES1[0]);
   const [selectedColor, setSelectedColor] = useState(COLORS[0]);
   const [draggingId, setDraggingId] = useState(null);
@@ -124,102 +124,149 @@ const CustomizerView = ({ flowers, setFlowers,ribbon, setRibbon, ring, setRing, 
               </button>
             </div>
             {flowers.length > 0 && (
-  <div className="pt-4 border-t border-gray-100">
-    <p className="text-[10px] font-bold text-gray-400 mb-3 uppercase flex items-center gap-1">
-      <Info size={12} /> รายละเอียดช่อ (ลบได้):
-    </p>
+              <div className="pt-4 border-t border-gray-100">
+                <p className="text-[10px] font-bold text-gray-400 mb-3 uppercase flex items-center gap-1">
+                  <Info size={12} /> รายละเอียดช่อ (ลบได้):
+                </p>
 
-    <div className="flex flex-wrap gap-2">
-      {groupFlowers(flowers).map((g, idx) => (
-        <span
-          key={idx}
-          className="bg-gray-50 px-3 py-1.5 rounded-full text-xs text-gray-600 border border-gray-100 flex items-center gap-2"
-        >
-          
+                <div className="flex flex-wrap gap-2">
+                  {groupFlowers(flowers).map((g, idx) => (
+                    <span
+                      key={idx}
+                      className="bg-gray-50 px-3 py-1.5 rounded-full text-xs text-gray-600 border border-gray-100 flex items-center gap-2"
+                    >
 
-          {/* ชื่อ + จำนวน */}
-         <span>
-    {g.name} ({COLOR_NAMES[g.color] || 'ไม่ระบุสี'}) x {g.count}
-  </span>
 
-          {/* ปุ่มลบ */}
-          <button
-            onClick={() => removeOneFlower(g.name, g.color)}
-            className="text-gray-300 hover:text-red-500 transition-colors"
-          >
-            <Trash2 size={14} />
-          </button>
-        </span>
-      ))}
-    </div>
-  </div>
-)}
+                      {/* ชื่อ + จำนวน */}
+                      <span>
+                        {g.name} ({COLOR_NAMES[g.color] || 'ไม่ระบุสี'}) x {g.count}
+                      </span>
 
-          {flowers.length > 0 && (
-   <div className="mt-4 pt-4 border-t border-gray-100">
-    <p className="text-[10px] font-bold text-gray-400 mb-3 uppercase flex items-center gap-1">
-      <Info size={12} /> อะไหล่ที่เลือก:
-    </p>
+                      {/* ปุ่มลบ */}
+                      <button
+                        onClick={() => removeOneFlower(g.name, g.color)}
+                        className="text-gray-300 hover:text-red-500 transition-colors"
+                      >
+                        <Trash2 size={14} />
+                      </button>
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
 
-    <div className="flex flex-wrap gap-2">
-      {/* โบว์ */}
-      <span className="bg-gray-50 px-3 py-1.5 rounded-full text-xs text-gray-600 border border-gray-100 flex items-center gap-2">
-        โบว์
-        <span
-          className="w-4 h-4 rounded-md border"
-          style={{ backgroundColor: ribbon }}
-        />
-      </span>
+            {flowers.length > 0 && (
+              <div className="mt-4 pt-4 border-t border-gray-100">
+                <p className="text-[10px] font-bold text-gray-400 mb-3 uppercase flex items-center gap-1">
+                  <Info size={12} /> อะไหล่ที่เลือก:
+                </p>
 
-      {/* โช่ */}
-      <span className="bg-gray-50 px-3 py-1.5 rounded-full text-xs text-gray-600 border border-gray-100 flex items-center gap-2">
-        โช่
-        <span
-          className="w-4 h-4 rounded-full border"
-          style={{ backgroundColor: ring }}
-        />
-      </span>
-    </div>
-  </div>
-)}
+                <div className="flex flex-wrap gap-2">
+                  {/* โบว์ */}
+                  <span className="bg-gray-50 px-3 py-1.5 rounded-full text-xs text-gray-600 border border-gray-100 flex items-center gap-2">
+                    โบว์
+                    <span
+                      className="w-4 h-4 rounded-md border"
+                      style={{ backgroundColor: ribbon }}
+                    />
+                  </span>
+
+                  {/* โช่ */}
+                  <span className="bg-gray-50 px-3 py-1.5 rounded-full text-xs text-gray-600 border border-gray-100 flex items-center gap-2">
+                    โช่
+                    <span
+                      className="w-4 h-4 rounded-full border"
+                      style={{ backgroundColor: ring }}
+                    />
+                  </span>
+                </div>
+              </div>
+            )}
 
 
           </div>
         </div>
-
         <div className="space-y-6">
           <section className="bg-white p-6 rounded-3xl border border-[#F0EAD6] shadow-sm">
-            <h4 className="font-bold text-[#5D6D4E] mb-4 flex items-center gap-2"><PlusCircle size={18} /> 1. เลือกดอกไม้และสี</h4>
+            <h4 className="font-bold text-[#5D6D4E] mb-4 flex items-center gap-2">
+              <PlusCircle size={18} /> 1. เลือกดอกไม้และสี
+            </h4>
+
+            {/* ส่วนเลือกชนิดดอกไม้ (Flower Type Selection) */}
             <div className="flex gap-4 mb-6 overflow-x-auto pb-2 no-scrollbar">
-              {FLOWER_TYPES1.map(type => (
-                <button key={type.id} onClick={() => setSelectedType(type)} className={`p-4 rounded-2xl border-2 transition-all flex-shrink-0 flex flex-col items-center gap-2 min-w-[8px]  ${selectedType.id === type.id ? 'border-[#8A9A7B] bg-[#F8F9F4]' : 'border-transparent bg-gray-50'}`}>
-                  <div className="w-8 h-20">
-                    {/* ใส่รูปดอกไม้ */}
-                    <img src={type.img} alt={type.name} className="w-full h-full object-contain" />
-                  </div>
-                  <span className="text-[10px] font-bold uppercase">{type.name}</span>
-                </button>
+              {FLOWER_TYPES1.map(type => {
+                const isSelected = selectedType.id === type.id;
+                const displayImg = isSelected
+                  ? (type.colors[selectedColor]?.img || type.colors['#9E9E9E']?.img)
+                  : type.colors['#9E9E9E']?.img;
+                return (
+                  <button
+                    key={type.id}
+                    onClick={() => {
+                      setSelectedType(type);
+                      // ถ้าดอกไม้ใหม่ไม่มีสีเดิม ให้กลับไปสีเริ่มต้น
+                      if (!type.colors[selectedColor]) {
+                        setSelectedColor('#9E9E9E');
+                      }
+                    }}
+                    className={`p-4 rounded-2xl border-2 transition-all flex-shrink-0 flex flex-col items-center gap-2 min-w-[80px] ${isSelected ? 'border-[#8A9A7B] bg-[#F8F9F4]' : 'border-transparent bg-gray-50'
+                      }`}
+                  >
+
+                    <div className="w-12 h-16">
+                      <img
+                        src={displayImg} // ใช้ตัวแปร displayImg ที่เราคำนวณไว้ด้านบน
+                        alt={type.name}
+                        className="w-full h-full object-contain transition-all duration-300"
+                      />
+                    </div>
+                    <span className="text-[10px] font-bold uppercase">{type.name}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+
+            {/* ส่วนเลือกสี (Color Selection) - ดึงสีจาก selectedType โดยตรง */}
+            <p className="text-[10px] font-bold text-gray-400 mb-2 uppercase tracking-wider">เลือกสีที่ต้องการ:</p>
+            <div className="grid grid-cols-5 sm:grid-cols-9 gap-3 mb-6">
+              {Object.entries(selectedType.colors).map(([hex, data]) => (
+                <button
+                  key={hex}
+                  onClick={() => setSelectedColor(hex)}
+                  title={data.name}
+                  className={`w-full aspect-square rounded-full border-2 transition-all ${selectedColor === hex ? 'border-gray-800 scale-110 shadow-md' : 'border-gray-200'
+                    }`}
+                  style={{ backgroundColor: hex }}
+                />
               ))}
             </div>
-            <div className="grid grid-cols-5 sm:grid-cols-9 gap-3 mb-6 ">
-              {COLORS.map(c => <button key={c} onClick={() => setSelectedColor(c)} className={`w-full aspect-square rounded-full border-2 transition-all ${selectedColor === c ? 'border-gray-800 scale-110 shadow-md' :'border-gray-200'}`} style={{ backgroundColor: c }} />)}
-            </div>
-            <button onClick={addFlower} className="w-full py-4 bg-[#E9EDC9] text-[#5D6D4E] font-bold rounded-2xl hover:bg-[#CCD5AE] shadow-sm flex items-center justify-center gap-2 active:scale-95 transition-transform"><Plus size={20} /> เพิ่มดอกไม้ลงในช่อ</button>
-          </section>
-          <section className="bg-white p-6 rounded-3xl border border-[#F0EAD6] shadow-sm text-[#5D6D4E]">
-            <h4 className="font-bold mb-4">2. อะไหล่แถมฟรี!</h4>
-            <div className="grid grid-cols-2 gap-6">
-              <div>
-                <label className="text-[10px] font-bold opacity-60 block mb-2 uppercase">สีโบว์</label>
-                <div className="flex flex-wrap gap-2">{RIBBON_COLORS.map(c => <button key={c} onClick={() => setRibbon(c)} className={`w-8 h-8 rounded-lg border-2 ${ribbon === c ? 'border-gray-800 shadow-sm' : 'border-gray-200'}`} style={{ backgroundColor: c }} />)}</div>
-              </div>
-              <div>
-                <label className="text-[10px] font-bold opacity-60 block mb-2 uppercase">สีโซ่</label>
-                <div className="flex flex-wrap gap-2">{RING_COLORS.map(c => <button key={c} onClick={() => setRing(c)} className={`w-8 h-8 rounded-full border-2 flex items-center justify-center ${ring === c ? 'border-gray-800 shadow-sm' : 'border-gray-200'}`} style={{ backgroundColor: c }}><div className="w-3 h-3 rounded-full border border-black/10"></div></button>)}</div>
-              </div>
-            </div>
+
+            {/* ปุ่มเพิ่มดอกไม้ */}
+            <button
+              onClick={addFlower}
+              className="w-full py-4 bg-[#E9EDC9] text-[#5D6D4E] font-bold rounded-2xl hover:bg-[#CCD5AE] shadow-sm flex items-center justify-center gap-2 active:scale-95 transition-transform"
+            >
+              <Plus size={20} /> เพิ่มดอกไม้ลงในช่อ
+            </button>
           </section>
         </div>
+
+
+
+        <section className="bg-white p-6 rounded-3xl border border-[#F0EAD6] shadow-sm text-[#5D6D4E]">
+          <h4 className="font-bold mb-4">2. อะไหล่แถมฟรี!</h4>
+          <div className="grid grid-cols-2 gap-6">
+            <div>
+              <label className="text-[10px] font-bold opacity-60 block mb-2 uppercase">สีโบว์</label>
+              <div className="flex flex-wrap gap-2">{RIBBON_COLORS.map(c => <button key={c} onClick={() => setRibbon(c)} className={`w-8 h-8 rounded-lg border-2 ${ribbon === c ? 'border-gray-800 shadow-sm' : 'border-gray-200'}`} style={{ backgroundColor: c }} />)}</div>
+            </div>
+            <div>
+              <label className="text-[10px] font-bold opacity-60 block mb-2 uppercase">สีโซ่</label>
+              <div className="flex flex-wrap gap-2">{RING_COLORS.map(c => <button key={c} onClick={() => setRing(c)} className={`w-8 h-8 rounded-full border-2 flex items-center justify-center ${ring === c ? 'border-gray-800 shadow-sm' : 'border-gray-200'}`} style={{ backgroundColor: c }}><div className="w-3 h-3 rounded-full border border-black/10"></div></button>)}</div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );
