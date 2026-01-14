@@ -156,11 +156,8 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
             /* pointer-events-none สำคัญมาก เพื่อให้กดลากดอกไม้ที่อยู่ข้างหลังรูปนี้ได้ */
             />
 
-            {flowers.length === 0 && (
-              <div className="absolute inset-0 z-30 flex items-center justify-center text-center text-gray-300 font-medium italic pointer-events-none">
-                เริ่มออกแบบดอกไม้ด้านขวา
-              </div>
-            )}
+           
+            {flowers.length === 0 && <div className="absolute inset-0 flex items-top justify-center text-center p-40 text-gray-300 font-medium italic">เริ่มออกแบบดอกไม้ด้านขวา</div>}
           </div>
 
           <div className="bg-white p-6 rounded-3xl border border-[#F0EAD6]">
