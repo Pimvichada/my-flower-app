@@ -110,25 +110,24 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
           <div
             ref={previewRef}
             className="bg-white rounded-3xl shadow-sm border border-[#F0EAD6] relative aspect-[4/5] md:h-[600px] overflow-hidden select-none touch-none"
-            style={{
-              touchAction: 'none',
-              // รูปแรก (bgJ) จะอยู่ด้านหน้า, รูปที่สอง (bgJ2) จะอยู่ด้านหลัง
-              backgroundImage: `url(${bgJ}),url(${bgJ2})`,
-              backgroundSize: 'cover, cover',
-              backgroundPosition: 'center, center',
-              backgroundRepeat: 'no-repeat, no-repeat'
-            }}
+            style={{ touchAction: 'none' }}
           >
+            {/* 1. LAYER หลังสุด (Background Back) */}
+            <img
+              src={bgJ2}
+              alt="background-back"
+              className="absolute inset-0 w-full h-full object-cover z-0"
+            />
 
-
-            <h3 className="absolute top-6 left-6 text-[#8A9A7B] font-bold uppercase tracking-widest text-xs z-20 bg-white/80 px-2 py-1 rounded ">
+            <h3 className="absolute top-6 left-6 text-[#8A9A7B] font-bold uppercase tracking-widest text-xs z-30 bg-white/80 px-2 py-1 rounded ">
               จัดวางตำแหน่งดอกไม้
             </h3>
 
+            {/* 2. LAYER กลาง (ดอกไม้) */}
             <svg
               ref={svgRef}
               viewBox="0 0 100 125"
-              className="w-full h-full"
+              className="w-full h-full relative z-10" // ใส่ z-10 ให้อยู่เหนือ bgJ2
             >
               {flowers.map(f => (
                 <g
@@ -149,10 +148,19 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
               ))}
             </svg>
 
+            {/* 3. LAYER หน้าสุด (Background Front - เช่น ปากถุงหรือกระดาษห่อด้านหน้า) */}
+            <img
+              src={bgJ}
+              alt="background-front"
+              className="absolute inset-0 w-full h-full object-cover z-20 pointer-events-none"
+            /* pointer-events-none สำคัญมาก เพื่อให้กดลากดอกไม้ที่อยู่ข้างหลังรูปนี้ได้ */
+            />
 
-            {flowers.length === 0 && <div className="absolute inset-0 flex items-top justify-center text-center p-40 text-gray-300 font-medium italic">เริ่มออกแบบดอกไม้ด้านขวา</div>}
-
-
+            {flowers.length === 0 && (
+              <div className="absolute inset-0 z-30 flex items-center justify-center text-center text-gray-300 font-medium italic pointer-events-none">
+                เริ่มออกแบบดอกไม้ด้านขวา
+              </div>
+            )}
           </div>
 
           <div className="bg-white p-6 rounded-3xl border border-[#F0EAD6]">
