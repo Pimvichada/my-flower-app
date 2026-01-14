@@ -7,7 +7,8 @@ import {
   PlusCircle
 } from 'lucide-react';
 import { FLOWER_TYPES1, COLORS, RIBBON_COLORS, RING_COLORS, COLOR_NAMES, } from '../../constants/index';
-import bgJ from '../../assets/j.png';
+import bgJ from '../../assets/j_front.png';
+import bgJ2 from '../../assets/j_back.png';
 import { groupFlowers, calculateCustomPrice, captureSnapshot } from '../../utils/helpers';
 
 
@@ -80,7 +81,19 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
 
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="flex flex-col gap-4">
-          <div ref={previewRef} className="bg-white rounded-3xl shadow-sm border border-[#F0EAD6] relative aspect-[4/5] md:h-[600px] overflow-hidden select-none touch-none" style={{ touchAction: 'none', backgroundImage: `url(${bgJ})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+<div 
+  ref={previewRef} 
+  className="bg-white rounded-3xl shadow-sm border border-[#F0EAD6] relative aspect-[4/5] md:h-[600px] overflow-hidden select-none touch-none" 
+  style={{ 
+    touchAction: 'none', 
+    // รูปแรก (bgJ) จะอยู่ด้านหน้า, รูปที่สอง (bgJ2) จะอยู่ด้านหลัง
+    backgroundImage: `url(${bgJ}),url(${bgJ2})`, 
+    backgroundSize: 'cover, cover', 
+    backgroundPosition: 'center, center',
+    backgroundRepeat: 'no-repeat, no-repeat'
+  }}
+>
+
 
             <h3 className="absolute top-6 left-6 text-[#8A9A7B] font-bold uppercase tracking-widest text-xs z-20 bg-white/80 px-2 py-1 rounded ">
               จัดวางตำแหน่งดอกไม้
