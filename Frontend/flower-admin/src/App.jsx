@@ -163,7 +163,7 @@ const DashboardView = ({ onLogout }) => {
                     <td className="px-6 py-4">
                       <button
                         onClick={() =>
-                          window.open(`http://localhost:5000/${order.slipPath}`)
+                          window.open(`http://72.62.243.238:5000/${order.slipPath}`)
                         }
                         className="flex items-center gap-1 text-xs font-bold text-[#8A9A7B] hover:text-[#5D6D4E] transition-colors underline decoration-dotted"
                       >
