@@ -288,6 +288,7 @@ const CustomizerView = ({
               <PlusCircle size={18} /> เลือกดอกไม้
             </h4>
 
+<<<<<<< HEAD
             <div className="flex gap-4 overflow-x-auto mb-4">
               {FLOWER_TYPES1.map(type => (
                 <button
@@ -309,6 +310,41 @@ const CustomizerView = ({
                   <p className="text-xs font-bold mt-1">{type.name}</p>
                 </button>
               ))}
+=======
+            {/* ส่วนเลือกชนิดดอกไม้ (Flower Type Selection) */}
+            <div className="flex gap-4 mb-6 overflow-x-auto pb-2 no-scrollbar ">
+              {FLOWER_TYPES1.map(type => {
+                const isSelected = selectedType.id === type.id;
+                const displayImg = isSelected
+                  ? (type.colors[selectedColor]?.img || type.colors['#9E9E9E']?.img)
+                  : type.colors['#9E9E9E']?.img;
+                return (
+                  <button
+                    key={type.id}
+                    onClick={() => {
+                      setSelectedType(type);
+                      // ถ้าดอกไม้ใหม่ไม่มีสีเดิม ให้กลับไปสีเริ่มต้น
+                      if (!type.colors[selectedColor]) {
+                        setSelectedColor('#9E9E9E');
+                      }
+                    }}
+                    className={`p-4 rounded-2xl border-2 transition-all flex-shrink-0 flex flex-col items-center gap-2 min-w-[80px] ${isSelected ? 'border-[#8A9A7B] bg-[#F8F9F4]' : 'border-transparent bg-gray-50'
+                      }`}
+                  >
+
+                    <div className="w-12 h-16 ">
+                      <img
+                        src={displayImg} // ใช้ตัวแปร displayImg ที่เราคำนวณไว้ด้านบน
+                        alt={type.name}
+                        className="w-full h-full object-contain transition-all duration-300"
+                      />
+                    </div>
+                    <span className="text-[10px] font-bold uppercase">{type.name}</span>
+                  </button>
+                );
+              })}
+
+>>>>>>> 7be87dffcaf3b04909b406f5a51dc1b496a634f8
             </div>
 
             {/* COLOR SELECT */}
@@ -335,6 +371,7 @@ const CustomizerView = ({
               <Plus size={18} /> เพิ่มดอกไม้
             </button>
           </section>
+<<<<<<< HEAD
 
           {/* ACCESSORIES */}
           <section className="bg-white p-6 rounded-3xl border">
@@ -376,6 +413,24 @@ const CustomizerView = ({
           </section>
 
         </div>
+=======
+          <section className="bg-white p-6 rounded-3xl border border-[#F0EAD6] shadow-sm text-[#5D6D4E]">
+          <h4 className="font-bold mb-4">2. อะไหล่แถมฟรี!</h4>
+          <div className="grid grid-cols-2 gap-6">
+            <div>
+              <label className="text-[10px] font-bold opacity-60 block mb-2 uppercase">สีโบว์</label>
+              <div className="flex flex-wrap gap-2">{RIBBON_COLORS.map(c => <button key={c} onClick={() => setRibbon(c)} className={`w-8 h-8 rounded-lg border-2 ${ribbon === c ? 'border-gray-800 shadow-sm' : 'border-gray-200'}`} style={{ backgroundColor: c }} />)}</div>
+            </div>
+            <div>
+              <label className="text-[10px] font-bold opacity-60 block mb-2 uppercase">สีโซ่</label>
+              <div className="flex flex-wrap gap-2">{RING_COLORS.map(c => <button key={c} onClick={() => setRing(c)} className={`w-8 h-8 rounded-full border-2 flex items-center justify-center ${ring === c ? 'border-gray-800 shadow-sm' : 'border-gray-200'}`} style={{ backgroundColor: c }}><div className="w-3 h-3 rounded-full border border-black/10"></div></button>)}</div>
+            </div>
+          </div>
+        </section>
+        </div>
+
+        
+>>>>>>> 7be87dffcaf3b04909b406f5a51dc1b496a634f8
       </div>
     </div>
   );

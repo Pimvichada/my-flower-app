@@ -1,5 +1,4 @@
 import f1 from '../assets/f1/basicf1.png';
-import f2 from '../assets/f2/basicf2.png';
 import f1_red from '../assets/f1/f1_red.png';
 import f1_orange from '../assets/f1/f1_orange.png';
 import f1_blue from '../assets/f1/f1_blue.png'; 
@@ -7,6 +6,16 @@ import f1_purple from '../assets/f1/f1_purple.png';
 import f1_pink from '../assets/f1/f1_pink.png';
 import f1_white from '../assets/f1/f1_white.png';
 import f1_yellow from '../assets/f1/f1_yellow.png';
+
+import f2 from '../assets/f2/basicf2.png';
+import f2_red from '../assets/f2/f2_red.png';
+import f2_orange from '../assets/f2/f2_orange.png';
+import f2_blue from '../assets/f2/f2_blue.png';     
+import f2_purple from '../assets/f2/f2_purple.png';
+import f2_pink from '../assets/f2/f2_pink.png';
+import f2_white from '../assets/f2/f2_white.png';
+import f2_yellow from '../assets/f2/f2_yellow.png';
+
 
 // --- Pricing Constants ---
 export const SHIPPING_FEE = 25;
@@ -34,8 +43,14 @@ export const FLOWER_TYPES1 = [
   { 
     id: 'f2', 
     name: 'Tulip',
-    colors: {
-      // '#FFADAD': { name: 'แดงพาสเทล', img: f2_red },
+   colors: {
+      '#FFADAD': { name: 'แดงพาสเทล', img: f2_red },
+      '#FFD6A5': { name: 'ส้มพีช', img: f2_orange },
+      '#A0C4FF': { name: 'ฟ้าสดใส', img: f2_blue },
+      '#BDB2FF': { name: 'ม่วงลาเวนเดอร์', img: f2_purple },
+      '#FFC6FF': { name: 'ชมพูหวาน', img: f2_pink },
+      '#FFFFFF': { name: 'ขาวบริสุทธิ์', img: f2_white },
+      '#FDFFB6': { name: 'เหลือง', img: f2_yellow },
       '#9E9E9E': { name: 'สีเริ่มต้น', img: f2 } // basicf2.png
     }
   }
