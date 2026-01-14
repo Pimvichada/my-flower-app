@@ -6,7 +6,7 @@ import {
   Info,
   PlusCircle
 } from 'lucide-react';
-import { FLOWER_TYPES1, COLORS, RIBBON_COLORS, RING_COLORS} from '../../constants/index';
+import { FLOWER_TYPES1, COLORS, RIBBON_COLORS, RING_COLORS, COLOR_NAMES, } from '../../constants/index';
 import bgJ from '../../assets/j.png';
 import { groupFlowers, calculateCustomPrice, captureSnapshot } from '../../utils/helpers';
 
@@ -124,20 +124,66 @@ const CustomizerView = ({ flowers, setFlowers,ribbon, setRibbon, ring, setRing, 
               </button>
             </div>
             {flowers.length > 0 && (
-              <div className="pt-4 border-t border-gray-100">
-                <p className="text-[10px] font-bold text-gray-400 mb-3 uppercase flex items-center gap-1"><Info size={12} /> รายละเอียดช่อ (ลบได้):</p>
-                <div className="flex flex-wrap gap-2">
-                  {groupFlowers(flowers).map((g, idx) => (
-                    <span key={idx} className="bg-gray-50 px-3 py-1.5 rounded-full text-xs text-gray-600 border border-gray-100 flex items-center gap-2">
-                      {g.name} x {g.count}
-                      <button onClick={() => removeOneFlower(g.name, g.color)} className="text-gray-300 hover:text-red-500 transition-colors">
-                        <Trash2 size={14} />
-                      </button>
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
+  <div className="pt-4 border-t border-gray-100">
+    <p className="text-[10px] font-bold text-gray-400 mb-3 uppercase flex items-center gap-1">
+      <Info size={12} /> รายละเอียดช่อ (ลบได้):
+    </p>
+
+    <div className="flex flex-wrap gap-2">
+      {groupFlowers(flowers).map((g, idx) => (
+        <span
+          key={idx}
+          className="bg-gray-50 px-3 py-1.5 rounded-full text-xs text-gray-600 border border-gray-100 flex items-center gap-2"
+        >
+          
+
+          {/* ชื่อ + จำนวน */}
+         <span>
+    {g.name} ({COLOR_NAMES[g.color] || 'ไม่ระบุสี'}) x {g.count}
+  </span>
+
+          {/* ปุ่มลบ */}
+          <button
+            onClick={() => removeOneFlower(g.name, g.color)}
+            className="text-gray-300 hover:text-red-500 transition-colors"
+          >
+            <Trash2 size={14} />
+          </button>
+        </span>
+      ))}
+    </div>
+  </div>
+)}
+
+          {flowers.length > 0 && (
+   <div className="mt-4 pt-4 border-t border-gray-100">
+    <p className="text-[10px] font-bold text-gray-400 mb-3 uppercase flex items-center gap-1">
+      <Info size={12} /> อะไหล่ที่เลือก:
+    </p>
+
+    <div className="flex flex-wrap gap-2">
+      {/* โบว์ */}
+      <span className="bg-gray-50 px-3 py-1.5 rounded-full text-xs text-gray-600 border border-gray-100 flex items-center gap-2">
+        โบว์
+        <span
+          className="w-4 h-4 rounded-md border"
+          style={{ backgroundColor: ribbon }}
+        />
+      </span>
+
+      {/* โช่ */}
+      <span className="bg-gray-50 px-3 py-1.5 rounded-full text-xs text-gray-600 border border-gray-100 flex items-center gap-2">
+        โช่
+        <span
+          className="w-4 h-4 rounded-full border"
+          style={{ backgroundColor: ring }}
+        />
+      </span>
+    </div>
+  </div>
+)}
+
+
           </div>
         </div>
 
@@ -168,7 +214,7 @@ const CustomizerView = ({ flowers, setFlowers,ribbon, setRibbon, ring, setRing, 
                 <div className="flex flex-wrap gap-2">{RIBBON_COLORS.map(c => <button key={c} onClick={() => setRibbon(c)} className={`w-8 h-8 rounded-lg border-2 ${ribbon === c ? 'border-gray-800 shadow-sm' : 'border-gray-200'}`} style={{ backgroundColor: c }} />)}</div>
               </div>
               <div>
-                <label className="text-[10px] font-bold opacity-60 block mb-2 uppercase">สีห่วง</label>
+                <label className="text-[10px] font-bold opacity-60 block mb-2 uppercase">สีโซ่</label>
                 <div className="flex flex-wrap gap-2">{RING_COLORS.map(c => <button key={c} onClick={() => setRing(c)} className={`w-8 h-8 rounded-full border-2 flex items-center justify-center ${ring === c ? 'border-gray-800 shadow-sm' : 'border-gray-200'}`} style={{ backgroundColor: c }}><div className="w-3 h-3 rounded-full border border-black/10"></div></button>)}</div>
               </div>
             </div>
