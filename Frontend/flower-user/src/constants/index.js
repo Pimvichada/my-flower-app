@@ -30,13 +30,13 @@ export const FLOWER_TYPES1 = [
     name: 'f1',
     // เก็บรูปแยกตามรหัสสี (Hex Code)
     colors: {
-      '#FFADAD': { name: 'แดงพาสเทล', img: f1_red },
-      '#FFD6A5': { name: 'ส้มพีช', img: f1_orange },
-      '#A0C4FF': { name: 'ฟ้าสดใส', img: f1_blue },
+      '#CC3333': { name: 'แดงพาสเทล', img: f1_red },
+      '#FF8C00': { name: 'ส้มพีช', img: f1_orange },
+      '#66CCFF': { name: 'ฟ้าสดใส', img: f1_blue },
       '#BDB2FF': { name: 'ม่วงลาเวนเดอร์', img: f1_purple },
       '#FFC6FF': { name: 'ชมพูหวาน', img: f1_pink },
       '#FFFFFF': { name: 'ขาวบริสุทธิ์', img: f1_white },
-      '#FDFFB6': { name: 'เหลือง', img: f1_yellow },
+      '	#FFFF00': { name: 'เหลือง', img: f1_yellow },
       '#9E9E9E': { name: 'สีเริ่มต้น', img: f1 } // basicf1.png
     }
   },
@@ -44,13 +44,13 @@ export const FLOWER_TYPES1 = [
     id: 'f2', 
     name: 'Tulip',
    colors: {
-      '#FFADAD': { name: 'แดงพาสเทล', img: f2_red },
-      '#FFD6A5': { name: 'ส้มพีช', img: f2_orange },
-      '#A0C4FF': { name: 'ฟ้าสดใส', img: f2_blue },
+      '#CC3333': { name: 'แดงพาสเทล', img: f2_red },
+      '#FF8C00': { name: 'ส้มพีช', img: f2_orange },
+      '#66CCFF': { name: 'ฟ้าสดใส', img: f2_blue },
       '#BDB2FF': { name: 'ม่วงลาเวนเดอร์', img: f2_purple },
       '#FFC6FF': { name: 'ชมพูหวาน', img: f2_pink },
       '#FFFFFF': { name: 'ขาวบริสุทธิ์', img: f2_white },
-      '#FDFFB6': { name: 'เหลือง', img: f2_yellow },
+      '	#FFFF00': { name: 'เหลือง', img: f2_yellow },
       '#9E9E9E': { name: 'สีเริ่มต้น', img: f2 } // basicf2.png
     }
   }
@@ -69,16 +69,16 @@ export const FLOWER_TYPES = [
   { id: 'f2', name: 'Tulip', color: '#FFCDD2', svg: 'M12 21c-3.3 0-6-2.7-6-6 0-3.3 2.7-6 6-6s6 2.7 6 6-2.7 6-6 6z' },
   { id: 'f3', name: 'Rose', color: '#F8BBD0', svg: 'M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z' },
   { id: 'f4', name: 'Lavender', color: '#E1BEE7', svg: 'M12 2v20M9 7l3 3 3-3M9 12l3 3 3-3' },
-  { id: 'f5', name: 'Sunflower', color: '#FFE082', svg: 'M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0' }
+  { id: 'f5', name: 'Sunflower', color: '	#FFFF00', svg: 'M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0' }
 ];
 
 // --- Color Options ---
 export const COLOR_NAMES = { 
   '#9E9E9E': 'สีเริ่มต้น' ,
-  '#FFADAD': 'แดงพาสเทล', 
-  '#FFD6A5': 'ส้มพีช', 
-  '#FDFFB6': 'เหลืองนวล', 
-  '#A0C4FF': 'ฟ้าสดใส', 
+  '#CC3333': 'แดงพาสเทล', 
+  '#FF8C00': 'ส้มพีช', 
+  '	#FFFF00': 'เหลืองนวล', 
+  '#66CCFF': 'ฟ้าสดใส', 
   '#BDB2FF': 'ม่วงลาเวนเดอร์', 
   '#FFC6FF': 'ชมพูหวาน', 
   '#FFFFFF': 'ขาวบริสุทธิ์',

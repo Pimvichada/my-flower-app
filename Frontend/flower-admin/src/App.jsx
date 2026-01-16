@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
   Lock, Package, RefreshCw, Eye, Check, X, LogOut,
-  CheckCircle, Flower, Truck, Calendar, MapPin, Download
+  CheckCircle, Flower, Truck, Calendar, MapPin, Download,Phone,Mail
 } from "lucide-react";
 
 // --- Helper สำหรับจัดการข้อมูลดอกไม้ (ยกมาจากไฟล์เดิมของคุณ) ---
@@ -187,6 +187,14 @@ const DashboardView = ({ onLogout }) => {
                     <div className="flex items-start gap-2">
                       <MapPin size={14} className="text-[#8A9A7B] shrink-0" />
                       <span className="leading-tight">{selectedOrder.customerInfo?.address}</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Phone size={14} className="text-[#8A9A7B] shrink-0" />
+                      <span className="leading-tight">เบอร์ติดต่อ: {selectedOrder.customerInfo?.phone}</span>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Mail size={14} className="text-[#8A9A7B] shrink-0" />
+                      <span className="leading-tight">อีเมล์: {selectedOrder.customerInfo?.email}</span>
                     </div>
                   </div>
                 </div>

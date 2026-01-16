@@ -61,6 +61,7 @@ const SuccessView = ({
             </span>
             <span className="font-bold text-gray-700">{customerInfo.name}</span>
           </div>
+          
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[11px]">
