@@ -28,6 +28,9 @@ const SuccessView = ({
         <h2 className="text-3xl md:text-4xl font-serif text-[#5D6D4E]">
           ส่งคําสั่งชื้อสําเร็จ!
         </h2>
+         <p className="text-gray-400 mt-2 font-medium text-sm md:text-base">
+          รอร้านอนุมัติคําสั่งชื้อ
+        </p>
         <p className="text-gray-400 mt-2 font-medium text-sm md:text-base">
           ขอบคุณที่อุดหนุน Flower For You 24
         </p>
