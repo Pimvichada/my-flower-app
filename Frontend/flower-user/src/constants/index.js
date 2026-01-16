@@ -18,7 +18,7 @@ import f2_yellow from '../assets/f2/f2_yellow.png';
 
 
 // --- Pricing Constants ---
-export const SHIPPING_FEE = 25;
+export const SHIPPING_FEE = 50;
 export const BASE_FLOWERS_COUNT = 5;
 export const BASE_PRICE = 69;
 export const ADDITIONAL_FLOWER_PRICE = 10;
