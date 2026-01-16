@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Lock, Package, RefreshCw, Eye, Check, X, LogOut } from "lucide-react";
+import {Lock,Package, RefreshCw, Eye, Check, X, LogOut,
+} from "lucide-react";
 
-// --- 1. หน้า Login Component ---
 const LoginView = ({ onLogin }) => {
   const [password, setPassword] = useState("");
-  const ADMIN_PASSWORD = "admin123"; // 👈 เปลี่ยนรหัสผ่านที่นี่
+  const ADMIN_PASSWORD = "admin123";
 
   return (
     <div className="min-h-screen bg-[#FDFBF7] flex items-center justify-center p-6">
@@ -12,6 +12,7 @@ const LoginView = ({ onLogin }) => {
         <div className="w-20 h-20 bg-[#F8F9F4] rounded-full flex items-center justify-center mx-auto mb-6">
           <Lock className="text-[#8A9A7B]" size={32} />
         </div>
+
         <h2 className="text-2xl font-serif text-[#5D6D4E] mb-2 font-bold">
           Admin Access
         </h2>
@@ -40,33 +41,33 @@ const LoginView = ({ onLogin }) => {
   );
 };
 
-// --- 2. หน้า Dashboard Component ---
+/* =========================
+   2. Dashboard Component
+========================= */
 const DashboardView = ({ onLogout }) => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [searchOrder, setSearchOrder] = useState("");
 
   const fetchOrders = async () => {
     setLoading(true);
     try {
       const res = await fetch("http://72.62.243.238:5000/api/orders", {
-        method: "GET", // ระบุ method ให้ชัดเจน
         headers: {
           "Content-Type": "application/json",
-          "x-admin-key": "fl0w3rf0ry0ufl0w3rf0ry0u", // <--- รหัสต้องตรงกับที่ตั้งไว้ใน Server.js
+          "x-admin-key": "fl0w3rf0ry0ufl0w3rf0ry0u",
         },
       });
 
-      // ตรวจสอบว่าถ้า Unauthorized (401) ให้แจ้งเตือน
       if (res.status === 401) {
-        alert("คุณไม่มีสิทธิ์เข้าถึงข้อมูลนี้ (Invalid Admin Key)");
+        alert("คุณไม่มีสิทธิ์เข้าถึงข้อมูลนี้");
         setLoading(false);
         return;
       }
-
       const data = await res.json();
       setOrders(data);
     } catch (err) {
-      console.error("Fetch error:", err);
+      console.error(err);
     }
     setLoading(false);
   };
@@ -78,30 +79,32 @@ const DashboardView = ({ onLogout }) => {
   const updateStatus = async (orderId, status) => {
     if (
       !confirm(
-        `คุณแน่ใจนะว่าต้องการ ${
+        `คุณแน่ใจหรือไม่ว่าต้องการ ${
           status === "approved" ? "ยอมรับ" : "ปฏิเสธ"
-        } ออเดอร์นี้?`
+        } ออเดอร์นี้`
       )
     )
       return;
-
     try {
-      await fetch(`http://72.62.243.238:5000/api/orders/${orderId}/status`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-          "x-admin-key": "fl0w3rf0ry0ufl0w3rf0ry0u",
-        },
-        body: JSON.stringify({ status }),
-      });
-      fetchOrders(); // โหลดข้อมูลใหม่เพื่ออัปเดตสถานะและซ่อนปุ่ม
-    } catch (err) {
-      alert("เกิดข้อผิดพลาดในการอัปเดตสถานะ");
+      await fetch(
+        `http://72.62.243.238:5000/api/orders/${orderId}/status`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            "x-admin-key": "fl0w3rf0ry0ufl0w3rf0ry0u",
+          },
+          body: JSON.stringify({ status }),
+        }
+      );
+      fetchOrders();
+    } catch {
+      alert("เกิดข้อผิดพลาด");
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 font-sans">
+    <div className="min-h-screen bg-gray-50">
       {/* Navbar */}
       <nav className="bg-white border-b border-gray-100 px-8 py-4 flex justify-between items-center sticky top-0 z-10">
         <div className="flex items-center gap-2 font-serif font-bold text-[#5D6D4E] text-xl">
@@ -109,14 +112,14 @@ const DashboardView = ({ onLogout }) => {
         </div>
         <button
           onClick={onLogout}
-          className="flex items-center gap-2 text-red-400 font-bold text-sm hover:text-red-600 transition-colors"
+          className="flex items-center gap-2 text-red-400 font-bold text-sm hover:text-red-600"
         >
           <LogOut size={18} /> ออกจากระบบ
         </button>
       </nav>
-
       <main className="p-8 max-w-7xl mx-auto">
-        <div className="flex justify-between items-end mb-8">
+        {/* Header */}
+        <div className="flex justify-between items-start mb-8">
           <div>
             <h1 className="text-3xl font-serif font-bold text-[#5D6D4E]">
               รายการสั่งซื้อ
@@ -125,24 +128,38 @@ const DashboardView = ({ onLogout }) => {
               ตรวจสอบและยืนยันการชำระเงินจากลูกค้า
             </p>
           </div>
-          <button
-            onClick={fetchOrders}
-            className="p-3 bg-white rounded-xl shadow-sm border border-gray-100 hover:bg-gray-50 transition-all active:scale-95"
-          >
-            <RefreshCw
-              size={20}
-              className={
-                loading ? "animate-spin text-[#8A9A7B]" : "text-[#8A9A7B]"
-              }
-            />
-          </button>
-        </div>
 
-        {/* Table Section */}
+          <div className="flex items-center gap-3">
+            <input
+              type="text"
+              placeholder="ค้นหาเลข Order..."
+              value={searchOrder}
+              onChange={(e) => setSearchOrder(e.target.value)}
+              className="px-5 py-3 w-64 bg-[#F8F9F4] rounded-xl border border-gray-200 text-sm
+                         focus:outline-none focus:ring-2 focus:ring-[#8A9A7B]"
+            />
+
+            <button
+              onClick={fetchOrders}
+              className="p-3 bg-white rounded-xl shadow-sm border border-gray-100
+                         hover:bg-gray-50 transition-all active:scale-95"
+            >
+              <RefreshCw
+                size={20}
+                className={
+                  loading
+                    ? "animate-spin text-[#8A9A7B]"
+                    : "text-[#8A9A7B]"
+                }
+              />
+            </button>
+          </div>
+        </div>
+        {/* Table */}
         <div className="bg-white rounded-[2rem] shadow-sm border border-gray-100 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left">
-              <thead className="bg-[#F8F9F4] text-[#8A9A7B] text-xs font-bold uppercase tracking-wider">
+              <thead className="bg-[#F8F9F4] text-[#8A9A7B] text-xs font-bold uppercase">
                 <tr>
                   <th className="px-6 py-5">ออเดอร์</th>
                   <th className="px-6 py-5">ลูกค้า</th>
@@ -152,93 +169,85 @@ const DashboardView = ({ onLogout }) => {
                   <th className="px-6 py-5 text-center">จัดการ</th>
                 </tr>
               </thead>
+
               <tbody className="divide-y divide-gray-50">
-                {orders.map((order) => (
-                  <tr
-                    key={order.orderId}
-                    className="hover:bg-gray-50/50 transition-colors"
-                  >
-                    <td className="px-6 py-4">
-                      <span className="font-mono font-bold text-[#5D6D4E]">
+                {orders
+                  .filter((o) =>
+                    o.orderId
+                      .toLowerCase()
+                      .includes(searchOrder.toLowerCase())
+                  )
+                  .map((order) => (
+                    <tr key={order.orderId}>
+                      <td className="px-6 py-4 font-mono font-bold">
                         {order.orderId}
-                      </span>
-                      <div className="text-[10px] text-gray-400 uppercase font-medium">
-                        {new Date(order.orderTime).toLocaleString("th-TH")}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="font-bold text-gray-700">
+                      </td>
+                      <td className="px-6 py-4">
                         {order.customerInfo?.name}
-                      </div>
-                      <div className="text-xs text-gray-400">
-                        {order.customerInfo?.phone}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 font-bold text-[#5D6D4E]">
-                      ฿{order.summary?.totalPrice.toLocaleString()}
-                    </td>
-                    <td className="px-6 py-4">
-                      <button
-                        onClick={() =>
-                          window.open(
-                            `http://72.62.243.238:5000/${order.slipPath}`
-                          )
-                        }
-                        className="flex items-center gap-1 text-xs font-bold text-[#8A9A7B] hover:text-[#5D6D4E] transition-colors underline decoration-dotted"
-                      >
-                        <Eye size={14} /> ดูสลิป
-                      </button>
-                    </td>
-                    <td className="px-6 py-4 text-center">
-                      <span
-                        className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase inline-block ${
-                          order.status === "approved"
-                            ? "bg-green-100 text-green-600"
-                            : order.status === "rejected"
-                            ? "bg-red-100 text-red-600"
-                            : "bg-orange-100 text-orange-600"
-                        }`}
-                      >
+                        <div className="text-xs text-gray-400">
+                          {order.customerInfo?.phone}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 font-bold">
+                        ฿
+                        {order.summary?.totalPrice.toLocaleString()}
+                      </td>
+                      <td className="px-6 py-4">
+                        <button
+                          onClick={() =>
+                            window.open(
+                              `http://72.62.243.238:5000/${order.slipPath}`
+                            )
+                          }
+                          className="flex items-center gap-1 text-sm text-[#8A9A7B] underline"
+                        >
+                          <Eye size={14} /> ดูสลิป
+                        </button>
+                      </td>
+                      <td className="px-6 py-4 text-center">
                         {order.status}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4">
-                      {/* --- ส่วนที่แก้ไข: เช็คสถานะก่อนโชว์ปุ่ม --- */}
-                      {order.status === "pending" ? (
-                        <div className="flex justify-center gap-2">
-                          <button
-                            onClick={() =>
-                              updateStatus(order.orderId, "approved")
-                            }
-                            className="p-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all shadow-sm active:scale-95"
-                            title="อนุมัติ"
-                          >
-                            <Check size={16} />
-                          </button>
-                          <button
-                            onClick={() =>
-                              updateStatus(order.orderId, "rejected")
-                            }
-                            className="p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all shadow-sm active:scale-95"
-                            title="ปฏิเสธ"
-                          >
-                            <X size={16} />
-                          </button>
-                        </div>
-                      ) : (
-                        <div className="text-center text-[10px] text-gray-300 font-bold italic uppercase tracking-widest">
-                          Done
-                        </div>
-                      )}
-                    </td>
-                  </tr>
-                ))}
+                      </td>
+                      <td className="px-6 py-4 text-center">
+                        {order.status === "pending" ? (
+                          <div className="flex justify-center gap-2">
+                            <button
+                              onClick={() =>
+                                updateStatus(
+                                  order.orderId,
+                                  "approved"
+                                )
+                              }
+                              className="p-2 bg-green-500 text-white rounded"
+                            >
+                              <Check size={16} />
+                            </button>
+                            <button
+                              onClick={() =>
+                                updateStatus(
+                                  order.orderId,
+                                  "rejected"
+                                )
+                              }
+                              className="p-2 bg-red-500 text-white rounded"
+                            >
+                              <X size={16} />
+                            </button>
+                          </div>
+                        ) : (
+                          <span className="text-gray-300 text-xs">
+                            Done
+                          </span>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
+
           {orders.length === 0 && !loading && (
-            <div className="p-20 text-center text-gray-300 font-serif italic">
-              ไม่พบข้อมูลคำสั่งซื้อในระบบ
+            <div className="p-20 text-center text-gray-300">
+              ไม่พบข้อมูลคำสั่งซื้อ
             </div>
           )}
         </div>
@@ -246,8 +255,6 @@ const DashboardView = ({ onLogout }) => {
     </div>
   );
 };
-
-// --- 3. Main App ---
 export default function App() {
   const [isAuth, setIsAuth] = useState(
     localStorage.getItem("isAdmin") === "true"
@@ -257,6 +264,7 @@ export default function App() {
     setIsAuth(true);
     localStorage.setItem("isAdmin", "true");
   };
+
   const logout = () => {
     setIsAuth(false);
     localStorage.removeItem("isAdmin");
