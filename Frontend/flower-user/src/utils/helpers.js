@@ -110,7 +110,7 @@ for (const f of flowers) {
 
   // --- แก้ไขจุดนี้: รักษาอัตราส่วนรูปภาพ ---
   // กำหนดให้ความกว้างดอกไม้คือ 50% ของความกว้างช่อ (ตามที่ตั้งไว้ใน SVG width={50})
-  const flowerWidth = (26 / 100) * width; 
+let flowerWidth = (26 / 100) * width;
 
 // คำนวณความสูงจาก aspect ratio (คงเดิม)
 const aspectRatio = img.height / img.width;
