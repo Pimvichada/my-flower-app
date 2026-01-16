@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {Lock,Package, RefreshCw, Eye, Check, X, LogOut,
+import {
+  Lock, Package, RefreshCw, Eye, Check, X, LogOut,
 } from "lucide-react";
 
 const LoginView = ({ onLogin }) => {
@@ -79,8 +80,7 @@ const DashboardView = ({ onLogout }) => {
   const updateStatus = async (orderId, status) => {
     if (
       !confirm(
-        `คุณแน่ใจหรือไม่ว่าต้องการ ${
-          status === "approved" ? "ยอมรับ" : "ปฏิเสธ"
+        `คุณแน่ใจหรือไม่ว่าต้องการ ${status === "approved" ? "ยอมรับ" : "ปฏิเสธ"
         } ออเดอร์นี้`
       )
     )
@@ -161,12 +161,14 @@ const DashboardView = ({ onLogout }) => {
             <table className="w-full text-left">
               <thead className="bg-[#F8F9F4] text-[#8A9A7B] text-xs font-bold uppercase">
                 <tr>
+                  <th className="px-6 py-5 text-center">จัดการ</th>
                   <th className="px-6 py-5">ออเดอร์</th>
                   <th className="px-6 py-5">ลูกค้า</th>
                   <th className="px-6 py-5">ยอดโอน</th>
                   <th className="px-6 py-5">หลักฐาน</th>
                   <th className="px-6 py-5 text-center">สถานะ</th>
                   <th className="px-6 py-5 text-center">จัดการ</th>
+
                 </tr>
               </thead>
 
@@ -187,6 +189,48 @@ const DashboardView = ({ onLogout }) => {
                         <div className="text-xs text-gray-400">
                           {order.customerInfo?.phone}
                         </div>
+                        {/* --- ส่วนแสดงรูปภาพ Snapshot --- */}
+
+                        <div className="mt-2">
+                          {order.items && order.items.map((item, idx) => (
+                            item.snapshot ? (
+                              <div key={idx} className="inline-block mr-2 text-center">
+                                <div className="w-16 h-20 bg-gray-50 rounded-lg overflow-hidden border border-gray-100 shadow-sm">
+                                  <img
+                                    src={item.snapshot}
+                                    alt="bouquet"
+                                    className="w-full h-full object-cover cursor-zoom-in"
+                                    onClick={() => {
+                                      // 1. เปิดหน้าต่างใหม่ที่เป็นหน้าว่างก่อน
+                                      const newWindow = window.open();
+
+                                      // 2. ตรวจสอบว่าหน้าต่างถูกเปิดสำเร็จ (ไม่โดน Pop-up blocker กั้น)
+                                      if (newWindow) {
+                                        newWindow.document.write(`
+        <html>
+          <head>
+            <title>Bouquet Preview - ${item.name || 'Flower'}</title>
+            <style>
+              body { margin: 0; background: #1a1a1a; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+              img { max-width: 90%; max-height: 90vh; box-shadow: 0 0 30px rgba(0,0,0,0.5); border-radius: 8px; }
+            </style>
+          </head>
+          <body>
+            <img src="${item.snapshot}" />
+          </body>
+        </html>
+      `);
+                                        newWindow.document.close(); // ปิดการเขียนเพื่อความสมบูรณ์ของหน้าเว็บ
+                                      } else {
+                                        alert("กรุณาอนุญาตให้เปิด Pop-up บนเบราว์เซอร์ของคุณ");
+                                      }
+                                    }}
+                                  />
+                                </div>
+                                <p className="text-[10px] text-gray-400 mt-1">{item.name}</p>
+                              </div>
+                            ) : null
+                          ))}</div>
                       </td>
                       <td className="px-6 py-4 font-bold">
                         ฿

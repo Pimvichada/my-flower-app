@@ -20,7 +20,7 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
   );
   const [draggingId, setDraggingId] = useState(null);
   const [isCapturing, setIsCapturing] = useState(false);
-const bouquetRef = useRef(null);
+  const bouquetRef = useRef(null);
   const previewRef = useRef(null);
   const svgRef = useRef(null);
 
@@ -102,6 +102,13 @@ const bouquetRef = useRef(null);
   const handleAddToCart = async () => {
     setIsCapturing(true);
 
+    // const imageSnapshot = await captureBouquetCanvas({
+    //   flowers: flowers,
+    //   bgBack: bgBackUrl,
+    //   bgFront: bgFrontUrl
+    // });
+
+    
     const snapshot = await captureBouquetCanvas({
       flowers,
       bgBack: bgJ2,
@@ -111,6 +118,7 @@ const bouquetRef = useRef(null);
     onAdd({
       name: `Custom Bouquet (${flowers.length} ดอก)`,
       price: calculateCustomPrice(flowers.length),
+      // snapshot: imageSnapshot,
       snapshot,
       details: flowers,
       ribbon,
