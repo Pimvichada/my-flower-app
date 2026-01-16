@@ -4,7 +4,8 @@ import {
   Plus,
   Trash2,
   Info,
-  PlusCircle
+  PlusCircle,
+  RefreshCw
 } from 'lucide-react';
 import { FLOWER_TYPES1, COLORS, RIBBON_COLORS, RING_COLORS, COLOR_NAMES, } from '../../constants/index';
 import bgJ from '../../assets/j_front.png';
@@ -61,21 +62,42 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
     e.target.setPointerCapture(e.pointerId);
     setDraggingId(id);
   };
+  // เพิ่ม state สำหรับเก็บโหมดการทำงาน
+  const [interactionMode, setInteractionMode] = useState('move'); // 'move' หรือ 'rotate'
 
   const handlePointerMove = (e) => {
     if (!draggingId || !previewRef.current) return;
-    const rect = previewRef.current.getBoundingClientRect();
-    let x = ((e.clientX - rect.left) / rect.width) * 100;
-    let y = ((e.clientY - rect.top) / rect.height) * 100;
-    x = Math.max(5, Math.min(95, x));
-    y = Math.max(5, Math.min(95, y));
-    setFlowers(prev =>
-      prev.map(f =>
-        f.id === draggingId ? { ...f, x, y } : f
-      )
-    );
-  };
 
+    const rect = previewRef.current.getBoundingClientRect();
+    const flower = flowers.find(f => f.id === draggingId);
+    if (!flower) return;
+
+    if (interactionMode === 'move') {
+      // --- Logic การลากตำแหน่งเดิม ---
+      let x = ((e.clientX - rect.left) / rect.width) * 100;
+      let y = ((e.clientY - rect.top) / rect.height) * 100;
+      x = Math.max(5, Math.min(95, x));
+      y = Math.max(5, Math.min(95, y));
+
+      setFlowers(prev => prev.map(f => f.id === draggingId ? { ...f, x, y } : f));
+
+    } else if (interactionMode === 'rotate') {
+      // --- Logic การหมุนใหม่ ---
+      // 1. หาจุดศูนย์กลางของดอกไม้ในหน่วย Pixel
+      const centerX = rect.left + (flower.x / 100) * rect.width;
+      const centerY = rect.top + (flower.y / 100) * rect.height;
+
+      // 2. คำนวณระยะห่างระหว่างเมาส์กับจุดศูนย์กลาง
+      const dx = e.clientX - centerX;
+      const dy = e.clientY - centerY;
+
+      // 3. ใช้ atan2 เพื่อหามุม (Radian) และแปลงเป็น Degree
+      // + 90 เพื่อให้จุด Handle ที่อยู่ด้านบนเริ่มที่ 0 องศา
+      const angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
+
+      setFlowers(prev => prev.map(f => f.id === draggingId ? { ...f, rotation: angle } : f));
+    }
+  };
   const handleAddToCart = async () => {
     setIsCapturing(true);
     const snapshot = await handleCaptureSnapshot();
@@ -123,30 +145,67 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
               จัดวางตำแหน่งดอกไม้
             </h3>
 
-            {/* 2. LAYER กลาง (ดอกไม้) */}
-            <svg
-              ref={svgRef}
-              viewBox="0 0 100 125"
-              className="w-full h-full relative z-10" // ใส่ z-10 ให้อยู่เหนือ bgJ2
-            >
-              {flowers.map(f => (
-                <g
-                  key={f.id}
-                  transform={`translate(${f.x}, ${f.y}) rotate(${f.rotation})`}
-                  onPointerDown={(e) => handlePointerDown(e, f.id)}
-                  style={{ cursor: 'move' }}
-                >
-                  <image
-                    href={f.img}
-                    x={-14}
-                    y={-14}
-                    width={28}
-                    height={28}
-                    draggable={false}
-                  />
-                </g>
-              ))}
-            </svg>
+{/* 2. LAYER กลาง (ดอกไม้) */}
+<svg
+  ref={svgRef}
+  viewBox="0 0 100 125"
+  className="w-full h-full relative z-10"
+>
+  {flowers.map(f => (
+    <g
+      key={f.id}
+      transform={`translate(${f.x}, ${f.y})`}
+      style={{ cursor: 'move' }}
+    >
+      {/* กลุ่มที่ใช้หมุนภาพและไอคอน */}
+      <g transform={`rotate(${f.rotation || 0})`}>
+        <image
+          href={f.img}
+          x={-25}
+          y={-25}
+          width={50}
+          height={50}
+          draggable={false}
+          onPointerDown={(e) => {
+            setInteractionMode('move');
+            handlePointerDown(e, f.id);
+          }}
+        />
+
+        {/* ปุ่มไอคอนสำหรับหมุน (Rotation Handle) */}
+        <foreignObject
+          x="-10"   // กึ่งกลางไอคอน (กว้าง 20 / 2)
+          y="-40"   // ตำแหน่งความสูงเหนือรูปดอกไม้
+          width="20"
+          height="20"
+        >
+          <div
+            style={{
+              cursor: 'alias',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '100%',
+              height: '100%',
+              fontSize: '14px',
+              userSelect: 'none',
+              // ใส่ background หรือ border เพิ่มได้ถ้าต้องการให้เห็นชัดขึ้น
+              // backgroundColor: 'white',
+              // borderRadius: '50%'
+            }}
+            onPointerDown={(e) => {
+              e.stopPropagation(); // สำคัญมาก: กันไม่ให้ไปโดน event ลากของรูป
+              setInteractionMode('rotate');
+              handlePointerDown(e, f.id);
+            }}
+          >
+             <RefreshCw className="w-1 h-1" />
+          </div>
+        </foreignObject>
+      </g>
+    </g>
+  ))}
+</svg>
 
             {/* 3. LAYER หน้าสุด (Background Front - เช่น ปากถุงหรือกระดาษห่อด้านหน้า) */}
             <img
@@ -156,7 +215,7 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
             /* pointer-events-none สำคัญมาก เพื่อให้กดลากดอกไม้ที่อยู่ข้างหลังรูปนี้ได้ */
             />
 
-           
+
             {flowers.length === 0 && <div className="absolute inset-0 flex items-top justify-center text-center p-40 text-gray-300 font-medium italic">เริ่มออกแบบดอกไม้ด้านขวา</div>}
           </div>
 
