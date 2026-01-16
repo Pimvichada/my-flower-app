@@ -1,8 +1,8 @@
-import {ShoppingCart,Flower,Edit2,Trash2,Eye,PlusCircle,Info} from 'lucide-react';
-import {SHIPPING_FEE,COLOR_NAMES,RIBBON_COLOR_NAMES,RING_COLOR_NAMES} from '../../constants/index';
+import { ShoppingCart, Flower, Edit2, Trash2, Eye, PlusCircle, Info } from 'lucide-react';
+import { SHIPPING_FEE, COLOR_NAMES, RIBBON_COLOR_NAMES, RING_COLOR_NAMES } from '../../constants/index';
 import { groupFlowers } from '../../utils/helpers';
 const CartView = ({
-  cart,onRemove,onEdit,onCheckout,onAddMore,onViewImage}) => (
+  cart, onRemove, onEdit, onCheckout, onAddMore, onViewImage }) => (
   <div className="min-h-screen bg-[#FDFBF7] p-8">
     <div className="max-w-4xl mx-auto">
       <h2 className="text-4xl font-serif text-[#5D6D4E] mb-8 flex items-center gap-4">
@@ -37,8 +37,8 @@ const CartView = ({
                     <>
                       <img
                         src={item.snapshot}
-                        alt="Arrangement"
-                        className="w-full h-full object-cover transition-transform group-hover:scale-110"
+                        alt="bouquet"
+                        className="w-full h-auto object-contain"
                       />
                       <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center">
                         <Eye className="text-white" />
@@ -96,22 +96,22 @@ const CartView = ({
                       </p>
                       <div className="flex flex-wrap gap-2">
                         {item.ribbon && (
-  <span className="bg-gray-50 px-3 py-1.5 rounded-full text-xs text-gray-600 border flex items-center gap-2">
-    โบว์: {RIBBON_COLOR_NAMES[item.ribbon] || 'ไม่ระบุสี'}
-    <span
-      className="w-4 h-4 rounded-md border"
-      style={{ backgroundColor: item.ribbon }}
-      />
-     </span>)}
-        {item.ring && (
-        <span className="bg-gray-50 px-3 py-1.5 rounded-full text-xs text-gray-600 border flex items-center gap-2">
-        โซ่: {RING_COLOR_NAMES[item.ring] || 'ไม่ระบุสี'}
-        <span
-      className="w-4 h-4 rounded-full border"
-      style={{ backgroundColor: item.ring }}
-    />
-     </span>
-     )}
+                          <span className="bg-gray-50 px-3 py-1.5 rounded-full text-xs text-gray-600 border flex items-center gap-2">
+                            โบว์: {RIBBON_COLOR_NAMES[item.ribbon] || 'ไม่ระบุสี'}
+                            <span
+                              className="w-4 h-4 rounded-md border"
+                              style={{ backgroundColor: item.ribbon }}
+                            />
+                          </span>)}
+                        {item.ring && (
+                          <span className="bg-gray-50 px-3 py-1.5 rounded-full text-xs text-gray-600 border flex items-center gap-2">
+                            โซ่: {RING_COLOR_NAMES[item.ring] || 'ไม่ระบุสี'}
+                            <span
+                              className="w-4 h-4 rounded-full border"
+                              style={{ backgroundColor: item.ring }}
+                            />
+                          </span>
+                        )}
                       </div>
                     </div>
                   )}

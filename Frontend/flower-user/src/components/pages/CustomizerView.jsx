@@ -7,10 +7,10 @@ import {
   PlusCircle,
   RefreshCw
 } from 'lucide-react';
-import { FLOWER_TYPES1, COLORS, RIBBON_COLORS, RING_COLORS, COLOR_NAMES,RIBBON_COLOR_NAMES,RING_COLOR_NAMES  } from '../../constants/index';
+import { FLOWER_TYPES1, RIBBON_COLORS, RING_COLORS, COLOR_NAMES, RIBBON_COLOR_NAMES, RING_COLOR_NAMES } from '../../constants/index';
 import bgJ from '../../assets/j_front.png';
 import bgJ2 from '../../assets/j_back.png';
-import { groupFlowers, calculateCustomPrice, captureSnapshot } from '../../utils/helpers';
+import { groupFlowers, calculateCustomPrice, captureSnapshot, captureBouquetCanvas } from '../../utils/helpers';
 
 
 const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing, onAdd, onBack, editingId }) => {
@@ -20,13 +20,14 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
   );
   const [draggingId, setDraggingId] = useState(null);
   const [isCapturing, setIsCapturing] = useState(false);
+const bouquetRef = useRef(null);
   const previewRef = useRef(null);
   const svgRef = useRef(null);
 
-  const handleCaptureSnapshot = async () => {
-    if (!svgRef.current) return null;
-    return await captureSnapshot(svgRef.current);
-  };
+  // const handleCaptureSnapshot = async () => {
+  //   if (!svgRef.current) return null;
+  //   return await captureSnapshot(svgRef.current);
+  // };
 
   const addFlower = () => {
     const img = selectedType.colors[selectedColor]?.img;
@@ -100,17 +101,28 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
   };
   const handleAddToCart = async () => {
     setIsCapturing(true);
-    const snapshot = await handleCaptureSnapshot();
+
+    const snapshot = await captureBouquetCanvas({
+      flowers,
+      bgBack: bgJ2,
+      bgFront: bgJ
+    });
+
     onAdd({
       name: `Custom Bouquet (${flowers.length} ดอก)`,
       price: calculateCustomPrice(flowers.length),
+      snapshot,
       details: flowers,
-      snapshot: snapshot,
-      ribbon, ring,
+      ribbon,
+      ring,
       type: 'custom'
     });
+
     setIsCapturing(false);
   };
+
+
+
 
   return (
     <div
@@ -145,67 +157,67 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
               จัดวางตำแหน่งดอกไม้
             </h3>
 
-{/* 2. LAYER กลาง (ดอกไม้) */}
-<svg
-  ref={svgRef}
-  viewBox="0 0 100 125"
-  className="w-full h-full relative z-10"
->
-  {flowers.map(f => (
-    <g
-      key={f.id}
-      transform={`translate(${f.x}, ${f.y})`}
-      style={{ cursor: 'move' }}
-    >
-      {/* กลุ่มที่ใช้หมุนภาพและไอคอน */}
-      <g transform={`rotate(${f.rotation || 0})`}>
-        <image
-          href={f.img}
-          x={-25}
-          y={-25}
-          width={50}
-          height={50}
-          draggable={false}
-          onPointerDown={(e) => {
-            setInteractionMode('move');
-            handlePointerDown(e, f.id);
-          }}
-        />
+            {/* 2. LAYER กลาง (ดอกไม้) */}
+            <svg
+              ref={svgRef}
+              viewBox="0 0 100 125"
+              className="w-full h-full relative z-10"
+            >
+              {flowers.map(f => (
+                <g
+                  key={f.id}
+                  transform={`translate(${f.x}, ${f.y})`}
+                  style={{ cursor: 'move' }}
+                >
+                  {/* กลุ่มที่ใช้หมุนภาพและไอคอน */}
+                  <g transform={`rotate(${f.rotation || 0})`}>
+                    <image
+                      xlinkHref={f.img}
+                      x={-25}
+                      y={-25}
+                      width={50}
+                      height={50}
+                      draggable={false}
+                      onPointerDown={(e) => {
+                        setInteractionMode('move');
+                        handlePointerDown(e, f.id);
+                      }}
+                    />
 
-        {/* ปุ่มไอคอนสำหรับหมุน (Rotation Handle) */}
-        <foreignObject
-          x="-10"   // กึ่งกลางไอคอน (กว้าง 20 / 2)
-          y="-40"   // ตำแหน่งความสูงเหนือรูปดอกไม้
-          width="20"
-          height="20"
-        >
-          <div
-            style={{
-              cursor: 'alias',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '100%',
-              height: '100%',
-              fontSize: '14px',
-              userSelect: 'none',
-              // ใส่ background หรือ border เพิ่มได้ถ้าต้องการให้เห็นชัดขึ้น
-              // backgroundColor: 'white',
-              // borderRadius: '50%'
-            }}
-            onPointerDown={(e) => {
-              e.stopPropagation(); // สำคัญมาก: กันไม่ให้ไปโดน event ลากของรูป
-              setInteractionMode('rotate');
-              handlePointerDown(e, f.id);
-            }}
-          >
-             <RefreshCw className="w-1 h-1" />
-          </div>
-        </foreignObject>
-      </g>
-    </g>
-  ))}
-</svg>
+                    {/* ปุ่มไอคอนสำหรับหมุน (Rotation Handle) */}
+                    <foreignObject
+                      x="-10"   // กึ่งกลางไอคอน (กว้าง 20 / 2)
+                      y="-40"   // ตำแหน่งความสูงเหนือรูปดอกไม้
+                      width="20"
+                      height="20"
+                    >
+                      <div
+                        style={{
+                          cursor: 'alias',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          width: '100%',
+                          height: '100%',
+                          fontSize: '14px',
+                          userSelect: 'none',
+                          // ใส่ background หรือ border เพิ่มได้ถ้าต้องการให้เห็นชัดขึ้น
+                          // backgroundColor: 'white',
+                          // borderRadius: '50%'
+                        }}
+                        onPointerDown={(e) => {
+                          e.stopPropagation(); // สำคัญมาก: กันไม่ให้ไปโดน event ลากของรูป
+                          setInteractionMode('rotate');
+                          handlePointerDown(e, f.id);
+                        }}
+                      >
+                        <RefreshCw className="w-1 h-1" />
+                      </div>
+                    </foreignObject>
+                  </g>
+                </g>
+              ))}
+            </svg>
 
             <img
               src={bgJ}
