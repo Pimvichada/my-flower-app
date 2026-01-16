@@ -26,7 +26,7 @@ const SuccessView = ({
       <div className="text-center mb-8">
         <CheckCircle className="text-green-500 mx-auto mb-4" size={64} />
         <h2 className="text-3xl md:text-4xl font-serif text-[#5D6D4E]">
-          สั่งซื้อสำเร็จ!
+          ส่งคําสั่งชื้อสําเร็จ!
         </h2>
         <p className="text-gray-400 mt-2 font-medium text-sm md:text-base">
           ขอบคุณที่อุดหนุน Flower For You 24
