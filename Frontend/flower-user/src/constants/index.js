@@ -94,6 +94,21 @@ export const COLOR_NAMES = {
 // };
 
 
+export const RIBBON_COLOR_NAMES = {
+  '#FFB7B2': 'ชมพูพีช',
+  '#B2CEFE': 'ฟ้าอ่อน',
+  '#B2F2BB': 'เขียวมิ้นท์',
+  '#FFFFD1': 'เหลืองครีม',
+  '#E2F0CB': 'เขียวพาสเทล',
+  '#FFDAC1': 'ส้มพาสเทล',
+};
+
+export const RING_COLOR_NAMES = {
+  '#C0C0C0': 'เงิน',
+  '#FFD700': 'ทอง',
+  '#B87333': 'ทองแดง',
+  '#000000': 'ดำ',
+};
 
 
 export const COLORS = Object.keys(COLOR_NAMES);

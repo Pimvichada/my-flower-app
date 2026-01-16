@@ -7,7 +7,7 @@ import {
   PlusCircle,
   RefreshCw
 } from 'lucide-react';
-import { FLOWER_TYPES1, COLORS, RIBBON_COLORS, RING_COLORS, COLOR_NAMES, } from '../../constants/index';
+import { FLOWER_TYPES1, COLORS, RIBBON_COLORS, RING_COLORS, COLOR_NAMES,RIBBON_COLOR_NAMES,RING_COLOR_NAMES  } from '../../constants/index';
 import bgJ from '../../assets/j_front.png';
 import bgJ2 from '../../assets/j_back.png';
 import { groupFlowers, calculateCustomPrice, captureSnapshot } from '../../utils/helpers';
@@ -207,14 +207,11 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
   ))}
 </svg>
 
-            {/* 3. LAYER หน้าสุด (Background Front - เช่น ปากถุงหรือกระดาษห่อด้านหน้า) */}
             <img
               src={bgJ}
               alt="background-front"
               className="absolute inset-0 w-full h-full object-cover z-20 pointer-events-none"
-            /* pointer-events-none สำคัญมาก เพื่อให้กดลากดอกไม้ที่อยู่ข้างหลังรูปนี้ได้ */
             />
-
 
             {flowers.length === 0 && <div className="absolute inset-0 flex items-top justify-center text-center p-40 text-gray-300 font-medium italic">เริ่มออกแบบดอกไม้ด้านขวา</div>}
           </div>
@@ -242,13 +239,10 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
                       className="bg-gray-50 px-3 py-1.5 rounded-full text-xs text-gray-600 border border-gray-100 flex items-center gap-2"
                     >
 
-
-                      {/* ชื่อ + จำนวน */}
                       <span>
                         {g.name} ({COLOR_NAMES[g.color] || 'ไม่ระบุสี'}) x {g.count}
                       </span>
 
-                      {/* ปุ่มลบ */}
                       <button
                         onClick={() => removeOneFlower(g.name, g.color)}
                         className="text-gray-300 hover:text-red-500 transition-colors"
@@ -270,16 +264,15 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
                 <div className="flex flex-wrap gap-2">
                   {/* โบว์ */}
                   <span className="bg-gray-50 px-3 py-1.5 rounded-full text-xs text-gray-600 border border-gray-100 flex items-center gap-2">
-                    โบว์
+                    โบว์: {RIBBON_COLOR_NAMES[ribbon] || 'ไม่ระบุสี'}
                     <span
                       className="w-4 h-4 rounded-md border"
                       style={{ backgroundColor: ribbon }}
                     />
                   </span>
 
-                  {/* โช่ */}
                   <span className="bg-gray-50 px-3 py-1.5 rounded-full text-xs text-gray-600 border border-gray-100 flex items-center gap-2">
-                    โช่
+                    โช่: {RING_COLOR_NAMES[ring] || 'ไม่ระบุสี'}
                     <span
                       className="w-4 h-4 rounded-full border"
                       style={{ backgroundColor: ring }}
