@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import {
   Lock, Package, RefreshCw, Eye, Check, X, LogOut,
-  CheckCircle, Flower, Truck, Calendar, MapPin, Download,Phone,Mail
+  CheckCircle, Flower, Truck, Calendar, MapPin, Download, Phone, Mail
 } from "lucide-react";
 
-// --- Helper สำหรับจัดการข้อมูลดอกไม้ (ยกมาจากไฟล์เดิมของคุณ) ---
 const groupFlowers = (details) => {
   if (!details) return [];
   const counts = {};
@@ -14,9 +13,6 @@ const groupFlowers = (details) => {
   return Object.keys(counts).map((name) => ({ name, count: counts[name] }));
 };
 
-/* =========================
-   1. Login Component (เหมือนเดิม)
-========================= */
 const LoginView = ({ onLogin }) => {
   const [password, setPassword] = useState("");
   const ADMIN_PASSWORD = "admin123";
@@ -36,17 +32,15 @@ const LoginView = ({ onLogin }) => {
   );
 };
 
-/* =========================
-   2. Dashboard Component
-========================= */
 const DashboardView = ({ onLogout }) => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchOrder, setSearchOrder] = useState("");
-  
-  // State สำหรับ Modal ใหม่
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
+  
+  // State ใหม่สำหรับขยายรูปดอกไม้
+  const [zoomFlowerImg, setZoomFlowerImg] = useState(null);
 
   const fetchOrders = async () => {
     setLoading(true);
@@ -145,22 +139,17 @@ const DashboardView = ({ onLogout }) => {
           </table>
         </div>
 
-        {/* =========================
-           3. Order Details Modal (หน้าตา SuccessView)
-        ========================= */}
+        {/* Modal รายละเอียดออเดอร์ */}
         {isModalOpen && selectedOrder && (
           <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
             <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setIsModalOpen(false)}></div>
             
             <div className="relative bg-[#FDFBF7] rounded-[2.5rem] shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto transform animate-in zoom-in-95">
-              
-              {/* ปุ่มปิดมุมขวา */}
               <button onClick={() => setIsModalOpen(false)} className="absolute top-6 right-6 p-2 bg-white rounded-full shadow-md z-10 text-gray-400 hover:text-red-500 transition-colors">
                 <X size={20} />
               </button>
 
               <div className="p-8 md:p-10">
-                {/* Header เหมือน SuccessView */}
                 <div className="text-center mb-8">
                   <div className={`mx-auto mb-4 w-16 h-16 rounded-full flex items-center justify-center ${selectedOrder.status === 'approved' ? 'bg-green-100 text-green-500' : 'bg-orange-100 text-orange-500'}`}>
                     {selectedOrder.status === 'approved' ? <CheckCircle size={40} /> : <Package size={40} />}
@@ -169,7 +158,6 @@ const DashboardView = ({ onLogout }) => {
                   <p className="text-gray-400 text-sm">สถานะปัจจุบัน: {selectedOrder.status}</p>
                 </div>
 
-                {/* ข้อมูลลูกค้า/หมายเลขสั่งซื้อ */}
                 <div className="bg-white p-6 rounded-3xl mb-6 shadow-sm border border-[#F0EAD6]">
                   <div className="flex flex-col sm:flex-row justify-between border-b border-gray-100 pb-3 mb-3 gap-2">
                     <div className="flex flex-col">
@@ -182,11 +170,10 @@ const DashboardView = ({ onLogout }) => {
                     </div>
                   </div>
                   <div className="grid grid-cols-1 gap-3 text-xs text-gray-500">
-                 <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2">
                       <Calendar size={14} className="text-[#8A9A7B]" />
                       <span>วันที่สั่งซื้อ: {selectedOrder.orderTime ? new Date(selectedOrder.orderTime).toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'}) : '-'}</span>
                     </div>
-
                     <div className="flex items-start gap-2">
                       <MapPin size={14} className="text-[#8A9A7B] shrink-0" />
                       <span className="leading-tight">{selectedOrder.customerInfo?.address}</span>
@@ -202,12 +189,15 @@ const DashboardView = ({ onLogout }) => {
                   </div>
                 </div>
 
-                {/* รายการสินค้า */}
                 <div className="space-y-4 mb-8">
                   <h4 className="font-bold text-[10px] uppercase tracking-widest text-[#8A9A7B] border-b pb-2">รายการที่สั่งซื้อ</h4>
                   {selectedOrder.items?.map((item, idx) => (
                     <div key={idx} className="flex gap-4 bg-white p-3 rounded-2xl border border-gray-50">
-                      <div className="w-20 aspect-[4/5] bg-gray-50 rounded-xl overflow-hidden shrink-0 border border-gray-100">
+                      {/* ส่วนรูปดอกไม้ที่แก้ไขให้กดขยายได้ */}
+                      <div 
+                        className="w-20 aspect-[4/5] bg-gray-50 rounded-xl overflow-hidden shrink-0 border border-gray-100 cursor-zoom-in hover:opacity-80 transition-all"
+                        onClick={() => item.snapshot && setZoomFlowerImg(item.snapshot)}
+                      >
                         {item.snapshot ? <img src={item.snapshot} className="w-full h-full object-cover" /> : <Flower className="m-auto mt-4 text-gray-200" />}
                       </div>
                       <div className="flex-1 py-1">
@@ -229,7 +219,6 @@ const DashboardView = ({ onLogout }) => {
                   ))}
                 </div>
 
-                {/* ยอดรวมสุทธิ */}
                 <div className="bg-[#5D6D4E] text-white p-6 rounded-3xl mb-8 flex justify-between items-center shadow-lg">
                   <div>
                     <span className="text-[10px] uppercase tracking-widest opacity-70 block">ยอดรวมสุทธิ</span>
@@ -238,7 +227,6 @@ const DashboardView = ({ onLogout }) => {
                   <span className="text-3xl font-bold">฿{selectedOrder.summary?.totalPrice.toLocaleString()}</span>
                 </div>
 
-                {/* หลักฐานการโอน (สลิป) - ส่วนที่เพิ่มพิเศษสำหรับ Admin */}
                 <div className="space-y-3">
                   <h4 className="font-bold text-[10px] uppercase tracking-widest text-[#8A9A7B] text-center">หลักฐานการโอนเงิน</h4>
                   <div className="bg-white p-4 rounded-3xl border-2 border-dashed border-gray-200 flex justify-center">
@@ -259,6 +247,26 @@ const DashboardView = ({ onLogout }) => {
                   ปิดหน้าต่าง
                 </button>
               </div>
+            </div>
+          </div>
+        )}
+
+       
+        {zoomFlowerImg && (
+          <div 
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-white/50 backdrop-blur-md p-4 cursor-zoom-out"
+            onClick={() => setZoomFlowerImg(null)}
+          >
+            <div className="relative max-w-2xl w-full flex flex-col items-center animate-in zoom-in-95 duration-200">
+                <button className="absolute -top-12 right-0 text-[#5D6D4E] hover:text-red-400 transition-colors">
+                    <X size={32} />
+                </button>
+                <img 
+                    src={zoomFlowerImg} 
+                    className="max-w-full max-h-[80vh] rounded-3xl shadow-2xl border-4 border-white/10" 
+                    alt="Flower Zoom" 
+                />
+                <p className="text-[#5D6D4E] mt-4 font-serif italic text-sm">Flower Snapshot Preview</p>
             </div>
           </div>
         )}
