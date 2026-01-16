@@ -30,6 +30,7 @@ export const FLOWER_TYPES1 = [
     name: 'f1',
     // เก็บรูปแยกตามรหัสสี (Hex Code)
     colors: {
+      '#9E9E9E': { name: 'สีเริ่มต้น', img: f1 },
       '#CC3333': { name: 'แดงพาสเทล', img: f1_red },
       '#FF8C00': { name: 'ส้มพีช', img: f1_orange },
       '#66CCFF': { name: 'ฟ้าสดใส', img: f1_blue },
@@ -37,13 +38,14 @@ export const FLOWER_TYPES1 = [
       '#FFC6FF': { name: 'ชมพูหวาน', img: f1_pink },
       '#FFFFFF': { name: 'ขาวบริสุทธิ์', img: f1_white },
       '	#FFFF00': { name: 'เหลือง', img: f1_yellow },
-      '#9E9E9E': { name: 'สีเริ่มต้น', img: f1 } // basicf1.png
+      // basicf1.png
     }
   },
   { 
     id: 'f2', 
     name: 'Tulip',
    colors: {
+    '#9E9E9E': { name: 'สีเริ่มต้น', img: f2 },
       '#CC3333': { name: 'แดงพาสเทล', img: f2_red },
       '#FF8C00': { name: 'ส้มพีช', img: f2_orange },
       '#66CCFF': { name: 'ฟ้าสดใส', img: f2_blue },
@@ -51,7 +53,7 @@ export const FLOWER_TYPES1 = [
       '#FFC6FF': { name: 'ชมพูหวาน', img: f2_pink },
       '#FFFFFF': { name: 'ขาวบริสุทธิ์', img: f2_white },
       '	#FFFF00': { name: 'เหลือง', img: f2_yellow },
-      '#9E9E9E': { name: 'สีเริ่มต้น', img: f2 } // basicf2.png
+       // basicf2.png
     }
   }
 ];
