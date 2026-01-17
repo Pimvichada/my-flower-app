@@ -1,4 +1,4 @@
-import { Plus, Search, Loader2, Flower2 } from 'lucide-react';
+import { Plus, Search, Loader2, Flower2, Instagram, Mail, MessageCircle } from 'lucide-react';
 import { useState } from 'react';
 import FallingBackground from '../shared/FallingBackground';
 
@@ -7,6 +7,16 @@ const HomeView = ({ onStartCustom, onGoCatalog }) => {
   const [orderData, setOrderData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyEmail = () => {
+    const email = "flowerforyoushop.s@gmail.com";
+    navigator.clipboard.writeText(email).then(() => {
+      setCopied(true);
+      // ให้ข้อความหายไปหลังจาก 2 วินาที
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
 
   const handleSearch = async () => {
     if (!orderId) return alert("กรุณากรอกหมายเลขคำสั่งซื้อ");
@@ -101,8 +111,8 @@ const HomeView = ({ onStartCustom, onGoCatalog }) => {
                 </div>
               </div>
               <span className={`text-[11px] font-bold px-3 py-1 rounded-full ${orderData.status === 'rejected'
-                  ? 'bg-red-50 text-red-400'
-                  : 'bg-[#8A9A7B] text-white'
+                ? 'bg-red-50 text-red-400'
+                : 'bg-[#8A9A7B] text-white'
                 }`}>
                 {orderData.status === 'rejected'
                   ? 'คำสั่งซื้อไม่สำเร็จ'
@@ -154,13 +164,13 @@ const HomeView = ({ onStartCustom, onGoCatalog }) => {
         <h1 className="text-5xl md:text-8xl font-serif mb-4 flex items-center justify-center gap-3">
           Flower
           <span className="italic font-light text-[#8A9A7B] inline-flex items-center gap-2">
-            For 
+            For
             {/* <Flower2
               className="text-[#5D6D4E] -translate-y-4"
               size={90}
             /> */}
           </span>
-           <span className="italic font-light text-[#5D6D4E] inline-flex items-center gap-2">
+          <span className="italic font-light text-[#5D6D4E] inline-flex items-center gap-2">
             You
           </span>
         </h1>
@@ -184,6 +194,44 @@ const HomeView = ({ onStartCustom, onGoCatalog }) => {
         >
           เลือกชุดที่มีอยู่
         </button>
+      </div>
+      {/* ================= Contact Section (New!) ================= */}
+      <div className="mt-16 flex flex-col items-center gap-4 z-10 relative">
+        <div className="flex items-center gap-6">
+          <a href="https://www.instagram.com/flowersforyou24?igsh=bjhnems5enhwNTQ=" target="_blank" rel="noreferrer"
+            className="text-[#8A9A7B] hover:text-[#5D6D4E] transition-transform hover:scale-110">
+            <Instagram size={24} />
+          </a>
+          <a href="https://www.tiktok.com/@flowers_for_you_24?_r=1&_t=ZS-938iZpPXDC3" target="_blank" rel="noreferrer"
+            className="text-[#8A9A7B] hover:text-[#5D6D4E] transition-transform hover:scale-110">
+            {/* TikTok Icon (Using MessageCircle or a custom SVG) */}
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path></svg>
+          </a>
+
+          <div className="relative flex flex-col items-center">
+            {/* ข้อความแจ้งเตือนเมื่อคัดลอกสำเร็จ */}
+            {copied && (
+    <div className="absolute -top-12 left-1/2 -translate-x-1/2 z-50 animate-in fade-in slide-in-from-bottom-2 duration-300">
+      <div className="relative bg-[#8A9A7B] text-white text-[11px] font-medium py-1.5 px-3 rounded-xl shadow-lg whitespace-nowrap">
+        คัดลอกอีเมลแล้ว!
+        {/* หางลูกศรชี้ลง */}
+        <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#8A9A7B] rotate-45"></div>
+      </div>
+    </div>
+  )}
+
+            <button
+              onClick={handleCopyEmail}
+              className="text-[#8A9A7B] hover:text-[#5D6D4E] transition-transform hover:scale-110 flex items-center justify-center"
+              title="Click to copy email"
+            >
+              <Mail size={24} />
+            </button>
+          </div>
+        </div>
+        <p className="text-[10px] tracking-[0.2em] text-[#8A9A7B] font-medium uppercase opacity-60">
+          Get in touch with us
+        </p>
       </div>
     </div>
   );
