@@ -22,8 +22,8 @@ import f3_orange from '../assets/f3/f3_orange.png';
 import f3_blue from '../assets/f3/f3_blue.png';
 import f3_purple from '../assets/f3/f3_purple.png';
 import f3_pink from '../assets/f3/f3_pink.png';
-import f3_white from '../assets/f3/f3_white.png';
-import f3_yellow from '../assets/f3/f3_yellow.png';
+// import f3_white from '../assets/f3/f3_white.png';
+// import f3_yellow from '../assets/f3/f3_yellow.png';
 
 import f4 from '../assets/f4/basicf4.png';
 import f4_red from '../assets/f4/f4_red.png';
@@ -145,25 +145,25 @@ export const COLOR_NAMES = {
 
 
 export const RIBBON_COLOR_NAMES = {
-  '#FFB7B2': 'ชมพูพีช',
-  '#B2CEFE': 'ฟ้าอ่อน',
-  '#B2F2BB': 'เขียวมิ้นท์',
-  '#FFFFD1': 'เหลืองครีม',
-  '#E2F0CB': 'เขียวพาสเทล',
+  '#F0D999': 'สีเหลืองอ่อน',
+  '#FFB3D9': 'ชมพูอ่อน',
+  '#ffffff': 'ขาว',
+  '#D1C7FF': 'ม่วงอ่อน',
+  '#B2DFFC': 'ฟ้าพาสเทล',
   '#FFDAC1': 'ส้มพาสเทล',
 };
 
 export const RING_COLOR_NAMES = {
-  '#C0C0C0': 'เงิน',
-  '#FFD700': 'ทอง',
-  '#B87333': 'ทองแดง',
-  '#000000': 'ดำ',
+  '#ffffff': 'ขาว',
+  '#F0D999': 'สีเหลืองอ่อน',
+  '#FFB3D9': 'สีชมพูอ่อน',
+  '#D98C5F': 'สีส้มอิฐ',
 };
 
 
 export const COLORS = Object.keys(COLOR_NAMES);
-export const RIBBON_COLORS = ['#FFB7B2', '#B2CEFE', '#B2F2BB', '#FFFFD1', '#E2F0CB', '#FFDAC1'];
-export const RING_COLORS = ['#C0C0C0', '#FFD700', '#B87333', '#000000'];
+export const RIBBON_COLORS = ['#F0D999', '#FFB3D9', '#ffffff', '#D1C7FF', '#B2DFFC'];
+export const RING_COLORS = ['#ffffff', '#FFD700', '#FFB3D9', '#D98C5F'];
 
 // --- Premade Sets ---
 export const PREMADE_SETS = [

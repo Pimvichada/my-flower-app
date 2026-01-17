@@ -4,13 +4,47 @@ import {
   CheckCircle, Flower, Truck, Calendar, MapPin, Download, Phone, Mail
 } from "lucide-react";
 
+// --- 1. ฟังก์ชันแปลงชื่อสี (ปรับปรุงให้รองรับสีมากขึ้นและป้องกัน Error) ---
+const getColorName = (hex) => {
+  if (!hex) return "ไม่ระบุสี";
+  
+  const colorMap = {
+    "#9E9E9E": "สีเทา",
+    "#CC3333": "เเดงพาสเทล",
+    "#FF8C00": "ส้มพีช",
+    "#66CCFF": "ฟ้าสดใส",
+    "#BDB2FF": "ม่วงลาเวนเดอร์",
+    "#FFC6FF": "ชมพูหวาน",
+    "#FFFFFF": "ขาวบริสุทธิ์",
+    "#FFFF00": "เหลือง",
+    
+  };
+
+  // ทำความสะอาดค่า hex (ตัดช่องว่าง และทำให้เป็นตัวพิมพ์ใหญ่)
+  const cleanHex = hex.trim().toUpperCase();
+  
+  // คืนค่าชื่อสี ถ้าไม่มีในรายการให้แสดงรหัส Hex แทน
+  return colorMap[cleanHex] || cleanHex;
+};
+
+// --- 2. ฟังก์ชันจัดกลุ่ม (ดึงค่าสีมาใช้แสดงผล) ---
 const groupFlowers = (details) => {
   if (!details) return [];
-  const counts = {};
+  const groups = {};
   details.forEach((f) => {
-    counts[f.name] = (counts[f.name] || 0) + 1;
+    // ใช้ทั้งชื่อและสีเป็น Key ในการจัดกลุ่ม
+    const key = `${f.name}-${f.color}`;
+    if (!groups[key]) {
+      groups[key] = { 
+        name: f.name, 
+        color: f.color || "#EEEEEE", 
+        colorName: getColorName(f.color), // เรียกใช้ฟังก์ชันแปลงชื่อสี
+        count: 0 
+      };
+    }
+    groups[key].count += 1;
   });
-  return Object.keys(counts).map((name) => ({ name, count: counts[name] }));
+  return Object.values(groups);
 };
 
 const LoginView = ({ onLogin }) => {
@@ -38,8 +72,6 @@ const DashboardView = ({ onLogout }) => {
   const [searchOrder, setSearchOrder] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
-  
-  // State ใหม่สำหรับขยายรูปดอกไม้
   const [zoomFlowerImg, setZoomFlowerImg] = useState(null);
 
   const fetchOrders = async () => {
@@ -139,7 +171,6 @@ const DashboardView = ({ onLogout }) => {
           </table>
         </div>
 
-        {/* Modal รายละเอียดออเดอร์ */}
         {isModalOpen && selectedOrder && (
           <div className="fixed inset-0 z-[60] flex items-center justify-center p-4">
             <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setIsModalOpen(false)}></div>
@@ -193,7 +224,6 @@ const DashboardView = ({ onLogout }) => {
                   <h4 className="font-bold text-[10px] uppercase tracking-widest text-[#8A9A7B] border-b pb-2">รายการที่สั่งซื้อ</h4>
                   {selectedOrder.items?.map((item, idx) => (
                     <div key={idx} className="flex gap-4 bg-white p-3 rounded-2xl border border-gray-50">
-                      {/* ส่วนรูปดอกไม้ที่แก้ไขให้กดขยายได้ */}
                       <div 
                         className="w-20 aspect-[4/5] bg-gray-50 rounded-xl overflow-hidden shrink-0 border border-gray-100 cursor-zoom-in hover:opacity-80 transition-all"
                         onClick={() => item.snapshot && setZoomFlowerImg(item.snapshot)}
@@ -206,10 +236,16 @@ const DashboardView = ({ onLogout }) => {
                           <span className="text-sm">{item.price} ฿</span>
                         </div>
                         {item.type === "custom" && (
-                          <div className="mt-2 flex flex-wrap gap-1">
+                          <div className="mt-2 flex flex-wrap gap-2">
                             {groupFlowers(item.details).map((g, i) => (
-                              <span key={i} className="text-[9px] bg-[#F8F9F4] px-2 py-0.5 rounded-full text-[#8A9A7B] font-bold">
-                                {g.name} x {g.count}
+                              <span key={i} className="flex items-center gap-2 text-[10px] bg-[#F8F9F4] pl-1.5 pr-2.5 py-1 rounded-full text-[#5D6D4E] font-bold border border-[#F0EAD6]">
+                                {/* จุดสีวงกลม */}
+                                <div 
+                                  className="w-2.5 h-2.5 rounded-full border border-gray-200" 
+                                  style={{ backgroundColor: g.color }}
+                                ></div>
+                                {/* แสดงชื่อสีที่แปลงแล้ว */}
+                                <span>{g.name} ({g.colorName}) x {g.count}</span>
                               </span>
                             ))}
                           </div>
@@ -229,18 +265,13 @@ const DashboardView = ({ onLogout }) => {
 
                 <div className="space-y-3">
                   <h4 className="font-bold text-[10px] uppercase tracking-widest text-[#8A9A7B] text-center">หลักฐานการโอนเงิน</h4>
-                  <div className="bg-white p-4 rounded-3xl border-2 border-dashed border-gray-200 flex justify-center">
-                    
+                  <div className="bg-white p-4 rounded-3xl border-2 border-dashed border-gray-200 flex justify-center relative">
                     <img 
                       src={`http://72.62.243.238:5000/${selectedOrder.slipPath}`} 
                       alt="Slip" 
                       className="max-w-full rounded-xl shadow-sm cursor-zoom-in"
-                      
                       onClick={() => window.open(`http://72.62.243.238:5000/${selectedOrder.slipPath}`)}
                     />
-                    <button className="absolute -top-5 right-0 text-[#5D6D4E] hover:text-red-400 transition-colors rounded-b-md shadow-orange-950 ">
-                    <X size={45} />
-                </button>
                   </div>
                   <p className="text-center text-[10px] text-gray-400 italic mt-2">คลิกที่รูปเพื่อดูขนาดใหญ่</p>
                 </div>
@@ -256,31 +287,26 @@ const DashboardView = ({ onLogout }) => {
           </div>
         )}
 
-       
         {zoomFlowerImg && (
-
           <div
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-white/100   p-4 cursor-zoom-out"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-white/100 p-4 cursor-zoom-out"
             onClick={() => setZoomFlowerImg(null)}
           >
-            
             <div className="relative max-w-2xl w-full flex flex-col items-center animate-in zoom-in-95 duration-200">
                 <button className="absolute -top-5 right-0 text-[#5D6D4E] hover:text-red-400 transition-colors rounded-b-md shadow-orange-950 ">
                     <X size={45} />
                 </button>
                 <img 
                     src={zoomFlowerImg} 
-                    className="max-w-full max-h-[80vh] rounded-3xl  border-4 border-white/10" 
+                    className="max-w-full max-h-[80vh] rounded-3xl border-4 border-white/10" 
                     alt="Flower Zoom" 
                 />
                 <p className="text-[#5D6D4E] mt-4 font-serif italic text-sm">Flower Snapshot Preview</p>
             </div>
           </div>
-          
         )}
       </main>
     </div>
-   
   );
 };
 
