@@ -139,7 +139,7 @@ const DashboardView = ({ onLogout }) => {
               {orders.filter(o => o.orderId.toLowerCase().includes(searchOrder.toLowerCase())).map((order) => (
                 <tr key={order.orderId} className="hover:bg-gray-50/50">
                   <td className="px-6 py-4 font-mono font-bold text-sm">{order.orderId}</td>
-                   <td className="px-6 py-4 text-sm text-gray-500">{order.orderTime ? new Date(order.orderTime).toLocaleDateString('th-TH', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '-'}</td>
+                   <td className="px-6 py-4 text-sm text-gray-500">{order.orderTime ? new Date(order.orderTime).toLocaleDateString('th-TH', { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '-'}</td>
                   <td className="px-6 py-4">
                     <div className="font-bold text-gray-700">{order.customerInfo?.name}</div>
                     <div className="text-xs text-gray-400">{order.customerInfo?.phone}</div>
@@ -203,7 +203,7 @@ const DashboardView = ({ onLogout }) => {
                   <div className="grid grid-cols-1 gap-3 text-xs text-gray-500">
                     <div className="flex items-center gap-2">
                       <Calendar size={14} className="text-[#8A9A7B]" />
-                      <span>วันที่สั่งซื้อ: {selectedOrder.orderTime ? new Date(selectedOrder.orderTime).toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'}) : '-'}</span>
+                      <span>วันที่สั่งซื้อ: {selectedOrder.orderTime ? new Date(selectedOrder.orderTime).toLocaleDateString('th-TH', { year: 'numeric',month:"numeric", day: 'numeric', hour: '2-digit', minute: '2-digit'}) : '-'}</span>
                     </div>
                     <div className="flex items-start gap-2">
                       <MapPin size={14} className="text-[#8A9A7B] shrink-0" />

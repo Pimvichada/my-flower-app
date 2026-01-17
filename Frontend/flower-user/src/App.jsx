@@ -94,6 +94,11 @@ const App = () => {
         type: item.type,
         price: item.price,
         details: item.type === "custom" ? item.details : null,
+        // (เพิ่มเติม) ถ้าอยากเก็บชื่อสีภาษาไทยไปด้วยเลย เพื่อให้ Backend อ่านง่าย
+        // ribbonName: RIBBON_COLOR_NAMES[item.ribbon] || null,
+        // ringName: RING_COLOR_NAMES[item.ring] || null,
+
+        quantity: 1,
         snapshot: item.snapshot, // ส่งรูปช่อดอกไม้ไปด้วยถ้ามี
       })),
       summary: {

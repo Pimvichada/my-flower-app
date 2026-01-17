@@ -309,8 +309,8 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
           <section className="bg-white p-6 rounded-3xl border border-[#F0EAD6] shadow-sm">
             <h4 className="font-bold text-[#5D6D4E] mb-4 flex items-center gap-2">
               <PlusCircle size={18} /> 1. เลือกดอกไม้และสี
+              <span className="text-xs font-normal text-[#90673d] opacity-60">(เลือกได้ 5ดอกฟรี! เพิ่มดอกละ 10บาท)</span>
             </h4>
-
             {/* ส่วนเลือกชนิดดอกไม้ (Flower Type Selection) */}
             <div className="justify-center flex gap-10 mb-6 overflow-x-auto pb-2 no-scrollbar ">
               {FLOWER_TYPES1.map(type => {
