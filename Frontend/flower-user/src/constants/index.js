@@ -16,6 +16,24 @@ import f2_pink from '../assets/f2/f2_pink.png';
 import f2_white from '../assets/f2/f2_white.png';
 import f2_yellow from '../assets/f2/f2_yellow.png';
 
+import f3 from '../assets/f3/basicf3.png';
+import f3_red from '../assets/f3/f3_red.png';
+import f3_orange from '../assets/f3/f3_orange.png';
+import f3_blue from '../assets/f3/f3_blue.png';
+import f3_purple from '../assets/f3/f3_purple.png';
+import f3_pink from '../assets/f3/f3_pink.png';
+import f3_white from '../assets/f3/f3_white.png';
+import f3_yellow from '../assets/f3/f3_yellow.png';
+
+import f4 from '../assets/f4/basicf4.png';
+import f4_red from '../assets/f4/f4_red.png';
+import f4_orange from '../assets/f4/f4_orange.png';
+import f4_blue from '../assets/f4/f4_blue.png';
+import f4_purple from '../assets/f4/f4_purple.png';
+import f4_pink from '../assets/f4/f4_pink.png';
+import f4_white from '../assets/f4/f4_white.png';
+import f4_yellow from '../assets/f4/f4_yellow.png';
+
 
 // --- Pricing Constants ---
 export const SHIPPING_FEE = 50;
@@ -27,7 +45,7 @@ export const ADDITIONAL_FLOWER_PRICE = 10;
 export const FLOWER_TYPES1 = [
   { 
     id: 'f1', 
-    name: 'f1',
+    name: 'ดอกหางกระรอก',
     // เก็บรูปแยกตามรหัสสี (Hex Code)
     colors: {
       '#9E9E9E': { name: 'สีเริ่มต้น', img: f1 },
@@ -43,7 +61,7 @@ export const FLOWER_TYPES1 = [
   },
   { 
     id: 'f2', 
-    name: 'Tulip',
+    name: 'ดอกกังหัน',
    colors: {
     '#9E9E9E': { name: 'สีเริ่มต้น', img: f2 },
       '#CC3333': { name: 'แดงพาสเทล', img: f2_red },
@@ -55,15 +73,45 @@ export const FLOWER_TYPES1 = [
       '	#FFFF00': { name: 'เหลือง', img: f2_yellow },
        // basicf2.png
     }
+  },
+   { 
+    id: 'f3', 
+    name: 'ดอกสามกลีบ',
+   colors: {
+    '#9E9E9E': { name: 'สีเริ่มต้น', img: f3 },
+      '#CC3333': { name: 'แดงพาสเทล', img: f3_red },
+      '#FF8C00': { name: 'ส้มพีช', img: f3_orange },
+      '#66CCFF': { name: 'ฟ้าสดใส', img: f3_blue },
+      '#BDB2FF': { name: 'ม่วงลาเวนเดอร์', img: f3_purple },
+      '#FFC6FF': { name: 'ชมพูหวาน', img: f3_pink },
+      '#FFFFFF': { name: 'ขาวบริสุทธิ์', img: f2_white },
+      '	#FFFF00': { name: 'เหลือง', img: f2_yellow },
+       // basicf2.png
+    }
+  },
+  { 
+    id: 'f4', 
+    name: 'ดอกแตกกิ่ง',
+   colors: {
+    '#9E9E9E': { name: 'สีเริ่มต้น', img: f4 },
+      '#CC3333': { name: 'แดงพาสเทล', img: f4_red },
+      '#FF8C00': { name: 'ส้มพีช', img: f4_orange },
+      '#66CCFF': { name: 'ฟ้าสดใส', img: f4_blue },
+      '#BDB2FF': { name: 'ม่วงลาเวนเดอร์', img: f4_purple },
+      '#FFC6FF': { name: 'ชมพูหวาน', img: f4_pink },
+      '#FFFFFF': { name: 'ขาวบริสุทธิ์', img: f4_white },
+      '	#FFFF00': { name: 'เหลือง', img: f4_yellow },
+       // basicf2.png
+    }
   }
 ];
 
 // --- Flower Types ---
 export const FLOWER_TYPES2 = [
-  { id: 'f1', name: 'f1' ,color: '#9E9E9E', img: f1},
-  { id: 'f2', name: 'Tulip', color: '#9E9E9E',  img: f2, },
-  { id: 'f3', name: 'Tulip', color: '#FFCDD2',  img: f2, },
-  { id: 'f4', name: 'Tulip', color: '#FFCDD2',  img: f2, },
+  { id: 'f1', name: 'ดอกหางกระรอก' ,color: '#9E9E9E', img: f1},
+  { id: 'f2', name: 'ดอกกังหัน', color: '#9E9E9E',  img: f2, },
+  { id: 'f3', name: 'ดอกสามกลีบ', color: '#FFCDD2',  img: f2, },
+  { id: 'f4', name: 'ดอกแตกกิ่ง', color: '#FFCDD2',  img: f2, },
 ];
 
 export const FLOWER_TYPES = [

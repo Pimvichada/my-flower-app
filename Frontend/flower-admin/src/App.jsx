@@ -230,12 +230,17 @@ const DashboardView = ({ onLogout }) => {
                 <div className="space-y-3">
                   <h4 className="font-bold text-[10px] uppercase tracking-widest text-[#8A9A7B] text-center">หลักฐานการโอนเงิน</h4>
                   <div className="bg-white p-4 rounded-3xl border-2 border-dashed border-gray-200 flex justify-center">
+                    
                     <img 
                       src={`http://72.62.243.238:5000/${selectedOrder.slipPath}`} 
                       alt="Slip" 
                       className="max-w-full rounded-xl shadow-sm cursor-zoom-in"
+                      
                       onClick={() => window.open(`http://72.62.243.238:5000/${selectedOrder.slipPath}`)}
                     />
+                    <button className="absolute -top-5 right-0 text-[#5D6D4E] hover:text-red-400 transition-colors rounded-b-md shadow-orange-950 ">
+                    <X size={45} />
+                </button>
                   </div>
                   <p className="text-center text-[10px] text-gray-400 italic mt-2">คลิกที่รูปเพื่อดูขนาดใหญ่</p>
                 </div>
@@ -253,25 +258,29 @@ const DashboardView = ({ onLogout }) => {
 
        
         {zoomFlowerImg && (
-          <div 
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-white/50 backdrop-blur-md p-4 cursor-zoom-out"
+
+          <div
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-white/100   p-4 cursor-zoom-out"
             onClick={() => setZoomFlowerImg(null)}
           >
+            
             <div className="relative max-w-2xl w-full flex flex-col items-center animate-in zoom-in-95 duration-200">
-                <button className="absolute -top-12 right-0 text-[#5D6D4E] hover:text-red-400 transition-colors">
-                    <X size={32} />
+                <button className="absolute -top-5 right-0 text-[#5D6D4E] hover:text-red-400 transition-colors rounded-b-md shadow-orange-950 ">
+                    <X size={45} />
                 </button>
                 <img 
                     src={zoomFlowerImg} 
-                    className="max-w-full max-h-[80vh] rounded-3xl shadow-2xl border-4 border-white/10" 
+                    className="max-w-full max-h-[80vh] rounded-3xl  border-4 border-white/10" 
                     alt="Flower Zoom" 
                 />
                 <p className="text-[#5D6D4E] mt-4 font-serif italic text-sm">Flower Snapshot Preview</p>
             </div>
           </div>
+          
         )}
       </main>
     </div>
+   
   );
 };
 

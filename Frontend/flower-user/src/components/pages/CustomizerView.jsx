@@ -233,7 +233,7 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
               className="absolute inset-0 w-full h-full object-cover z-20 pointer-events-none"
             />
 
-            {flowers.length === 0 && <div className="absolute inset-0 flex items-top justify-center text-center p-40 text-gray-300 font-medium italic">เริ่มออกแบบดอกไม้ด้านขวา</div>}
+            {flowers.length === 0 && <div className="absolute inset-0 flex items-top justify-center text-center p-40 text-gray-300 font-medium italic">เริ่มออกแบบดอกไม้ และลากเพื่อจัดวางตามที่คุณต้องการ</div>}
           </div>
 
           <div className="bg-white p-6 rounded-3xl border border-[#F0EAD6]">
@@ -312,7 +312,7 @@ const CustomizerView = ({ flowers, setFlowers, ribbon, setRibbon, ring, setRing,
             </h4>
 
             {/* ส่วนเลือกชนิดดอกไม้ (Flower Type Selection) */}
-            <div className="flex gap-4 mb-6 overflow-x-auto pb-2 no-scrollbar ">
+            <div className="justify-center flex gap-10 mb-6 overflow-x-auto pb-2 no-scrollbar ">
               {FLOWER_TYPES1.map(type => {
                 const isSelected = selectedType.id === type.id;
                 const displayImg = isSelected

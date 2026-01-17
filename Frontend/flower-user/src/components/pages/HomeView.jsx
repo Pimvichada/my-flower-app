@@ -47,41 +47,41 @@ const HomeView = ({ onStartCustom, onGoCatalog }) => {
       <div className="absolute bottom-4 right-4 z-30 w-full max-w-[300px] md:max-w-sm">
         {!showSearch ? (
           <button
-  onClick={() => setShowSearch(true)}
-  className="ml-auto w-20 h-20 rounded-full bg-[#8A9A7B] shadow-md flex items-center justify-center text-white hover:bg-[#6D7D5E] transition-all"
->
-  <Search size={30} />
-</button>
+            onClick={() => setShowSearch(true)}
+            className="ml-auto w-20 h-20 rounded-full bg-[#8A9A7B] shadow-md flex items-center justify-center text-white hover:bg-[#6D7D5E] transition-all"
+          >
+            <Search size={30} />
+          </button>
         ) : (
           /* 🔎 ช่องค้นหายาว */
           <div
-  className="
-    flex bg-white/80 backdrop-blur-md rounded-full shadow-md border border-[#8A9A7B]/30 overflow-hidden focus-within:border-[#8A9A7B] transition-all animate-in slide-in-from-top-2 fade-in duration-300 w-full max-w-[420px]"
-  onClick={(e) => e.stopPropagation()}
->
-  <input
-    type="text"
-    placeholder="เลขออเดอร์..."
-    className="
-    flex-1 px-6 py-4 outline-none text-[#5D6D4E] bg-transparent text-base"
-    value={orderId}
-    onChange={(e) => setOrderId(e.target.value)}
-    onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-    autoFocus
-  />
-  <button
-    onClick={handleSearch}
-    disabled={loading}
-    className="
-      bg-[#8A9A7B] text-white px-6 hover:bg-[#6D7D5E] transition-colors disabled:bg-gray-400 flex items-center justify-center"
-  >
-    {loading ? (
-      <Loader2 className="animate-spin" size={22} />
-    ) : (
-      <Search size={22} />
-    )}
-  </button>
-</div>
+            className="
+        flex bg-white/80 backdrop-blur-md rounded-full shadow-md border border-[#8A9A7B]/30 overflow-hidden focus-within:border-[#8A9A7B] transition-all animate-in slide-in-from-top-2 fade-in duration-300 w-full max-w-[420px]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <input
+              type="text"
+              placeholder="เลขออเดอร์..."
+              className="
+        flex-1 px-6 py-4 outline-none text-[#5D6D4E] bg-transparent text-base"
+              value={orderId}
+              onChange={(e) => setOrderId(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+              autoFocus
+            />
+            <button
+              onClick={handleSearch}
+              disabled={loading}
+              className="
+          bg-[#8A9A7B] text-white px-6 hover:bg-[#6D7D5E] transition-colors disabled:bg-gray-400 flex items-center justify-center"
+            >
+              {loading ? (
+                <Loader2 className="animate-spin" size={22} />
+              ) : (
+                <Search size={22} />
+              )}
+            </button>
+          </div>
 
         )}
         {orderData && (
@@ -96,12 +96,14 @@ const HomeView = ({ onStartCustom, onGoCatalog }) => {
                 <div className="font-extrabold text-[#5D6D4E] text-sm">
                   #{orderData.orderId}
                 </div>
+                <div className=" text-gray-400 text-[11px]">
+                  {new Date(orderData.orderTime).toLocaleDateString('th-TH', { year: '2-digit', month: '2-digit', day: '2-digit' })} {new Date(orderData.orderTime).toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' })}
+                </div>
               </div>
-              <span className={`text-[11px] font-bold px-3 py-1 rounded-full ${
-                orderData.status === 'rejected'
+              <span className={`text-[11px] font-bold px-3 py-1 rounded-full ${orderData.status === 'rejected'
                   ? 'bg-red-50 text-red-400'
                   : 'bg-[#8A9A7B] text-white'
-              }`}>
+                }`}>
                 {orderData.status === 'rejected'
                   ? 'คำสั่งซื้อไม่สำเร็จ'
                   : orderData.status}
@@ -150,15 +152,18 @@ const HomeView = ({ onStartCustom, onGoCatalog }) => {
       {/* ================= Title ================= */}
       <div className="mb-12 animate-fade-in text-[#5D6D4E] z-10 relative mt-12">
         <h1 className="text-5xl md:text-8xl font-serif mb-4 flex items-center justify-center gap-3">
-  Flower
-  <span className="italic font-light text-[#8A9A7B] inline-flex items-center gap-2">
-    For You
-   <Flower2
-  className="text-[#5D6D4E] -translate-y-4"
-  size={90}
-/>
-  </span>
-</h1>
+          Flower
+          <span className="italic font-light text-[#8A9A7B] inline-flex items-center gap-2">
+            For 
+            {/* <Flower2
+              className="text-[#5D6D4E] -translate-y-4"
+              size={90}
+            /> */}
+          </span>
+           <span className="italic font-light text-[#5D6D4E] inline-flex items-center gap-2">
+            You
+          </span>
+        </h1>
         <p className="text-lg md:text-2xl font-light italic opacity-80 tracking-[0.2em] text-[#99908c]">
           Crafted Flower
         </p>
