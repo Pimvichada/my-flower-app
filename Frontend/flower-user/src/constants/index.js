@@ -197,7 +197,7 @@ export const RIBBON_COLOR_NAMES = {
 };
 
 export const RING_COLOR_NAMES = {
-  '#ffffff': 'ขาว',
+  '#ffffff': 'ขาวว',
   '#F0D999': 'สีเหลืองอ่อน',
   '#FFB3D9': 'สีชมพูอ่อน',
   '#D98C5F': 'สีส้มอิฐ',
