@@ -206,7 +206,7 @@ export const RING_COLOR_NAMES = {
 
 export const COLORS = Object.keys(COLOR_NAMES);
 export const RIBBON_COLORS = ['#F0D999', '#FFB3D9', '#ffffff', '#D1C7FF', '#B2DFFC'];
-export const RING_COLORS = ['#ffffff', '#FFD700', '#FFB3D9', '#D98C5F'];
+export const RING_COLORS = ['#ffffff', '#F0D999', '#FFB3D9', '#D98C5F'];
 
 // --- Premade Sets ---
 export const PREMADE_SETS = [
